@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import IndexNav from '@/components/nav.vue'
-import IndexMain from '@/components/main.vue'
-import navTop from '@/components/nav_top.vue'
+import IndexNav from '@/components/indexCp/nav.vue'
+import IndexMain from '@/components/indexCp/main.vue'
+import navTop from '@/components/indexCp/nav_top.vue'
 export default {
   name: 'index',
   components: {

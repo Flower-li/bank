@@ -8,6 +8,7 @@
     add tab
   </el-button>
 </div>
+
 <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
   <el-tab-pane
     v-for="(item, index) in editableTabs"
@@ -15,18 +16,18 @@
     :label="item.title"
     :name="item.name"
   >
-  <list_Index/>
+  <listForm/>
   </el-tab-pane>
 </el-tabs>
 </div>
 </template>
 
 <script>
-import list_Index from '@/components/list_Index.vue'
+import listForm from '@/components/indexCp/mainCp/listForm.vue'
 export default {
   name: 'IndexMain',
   components:{
-    list_Index
+    listForm
   },
   data() {
       return {
@@ -35,7 +36,8 @@ export default {
           title: '首页',
           name: '1'
         }],
-        tabIndex: 1
+        tabIndex: 1,
+        input:''
       }
     },
     methods: {
