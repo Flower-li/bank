@@ -16,7 +16,7 @@
     :label="item.title"
     :name="item.name"
   >
-  <listForm/>
+  <perMissions/>
   </el-tab-pane>
 </el-tabs>
 </div>
@@ -24,10 +24,12 @@
 
 <script>
 import listForm from '@/components/indexCp/mainCp/listForm.vue'
+import perMissions from '@/components/indexCp/mainCp/perMissions.vue'
 export default {
   name: 'IndexMain',
   components:{
-    listForm
+    listForm,
+    perMissions
   },
   data() {
       return {

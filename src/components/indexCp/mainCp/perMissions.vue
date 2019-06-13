@@ -1,16 +1,13 @@
 <template>
-<div class="main">
-
-
-
-<div class="search">
+<div class="perMissions">
+  <div class="search">
   <el-input
     placeholder="请输入内容"
     v-model="input">
     <i slot="prefix" class="el-input__icon el-icon-search"></i>
   </el-input>
 
-  <el-input  v-model="input" placeholder="请输入内容"></el-input>
+  <el-input v-model="input" placeholder="请输入内容"></el-input>
 
   <el-select v-model="value" filterable placeholder="请选择">
     <el-option
@@ -37,25 +34,131 @@
   <el-button type="warning" icon="el-icon-search">导出</el-button>
 
 </div>
+
+
+<div class="form">
+
+<el-row>
+  <el-col :span="4">
+    <el-row>
+      <el-col>
+
+    <p>权限设置</p>
+    <el-button size="mini" type="primary">
+      保存
+    </el-button> 
+      </el-col>
+    </el-row>
+
+
+    <el-tree
+  :data="data"
+  show-checkbox
+  node-key="id"
+  :default-expanded-keys="[2, 3]"
+  :default-checked-keys="[5]"
+  :props="defaultProps">
+</el-tree>
+
+  </el-col>
+  <el-col :span="20">  
+    <el-table
+    :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+    style="width: 99%">
+    <el-table-column
+      label="Date"
+      prop="date">
+    </el-table-column>
+    <el-table-column
+      label="Name"
+      prop="name">
+    </el-table-column>
+     <el-table-column
+      label="Name"
+      prop="name">
+    </el-table-column>
+     <el-table-column
+      label="Name"
+      prop="name">
+    </el-table-column>
+     <el-table-column
+      label="Name"
+      prop="name">
+    </el-table-column>
+     <el-table-column
+      label="Name"
+      prop="name">
+    </el-table-column>
+     <el-table-column
+      label="Name"
+      prop="name">
+    </el-table-column>
+     <el-table-column
+      label="地址"
+      prop="address">
+    </el-table-column>
+    <el-table-column
+      min-width="200"
+      align="right"
+      label="操作">
+      <template slot-scope="scope">
+        <el-button
+          size="mini"
+          @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
+  </el-col>
+</el-row>
+
+
+
+
+
+  <div class="page">
+<el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage4"
+      :page-sizes="[100, 200, 300, 400]"
+      :page-size="100"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="400">
+    </el-pagination>
+  </div>
+</div>
+
+</div>
 </template>
 
 <script>
-import list_Index from '@/components/list_Index.vue'
 export default {
-  name: 'perMissons',
-  components:{
-    list_Index
-  },
-  data() {
+  name: 'perMissions',
+      data() {
       return {
-        editableTabsValue: '1',
-        editableTabs: [{
-          title: '首页',
-          name: '1'
+        tableData: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1517 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
         }],
-        tabIndex: 1,
-        input:'',
-        options: [{
+        search: '',
+                options: [{
           value: '选项1',
           label: '黄金糕'
         }, {
@@ -71,43 +174,64 @@ export default {
           value: '选项5',
           label: '北京烤鸭'
         }],
-        value: ''
+        value: '',
+        data: [{
+          id: 1,
+          label: '一级 1',
+          children: [{
+            id: 4,
+            label: '二级 1-1',
+            children: [{
+              id: 9,
+              label: '三级 1-1-1'
+            }, {
+              id: 10,
+              label: '三级 1-1-2'
+            }]
+          }]
+        }, {
+          id: 2,
+          label: '一级 2',
+          children: [{
+            id: 5,
+            label: '二级 2-1'
+          }, {
+            id: 6,
+            label: '二级 2-2'
+          }]
+        }, {
+          id: 3,
+          label: '一级 3',
+          children: [{
+            id: 7,
+            label: '二级 3-1'
+          }, {
+            id: 8,
+            label: '二级 3-2'
+          }]
+        }],
+        defaultProps: {
+          children: 'children',
+          label: 'label'
+        }
       }
     },
     methods: {
-      addTab(targetName) {
-        let newTabName = ++this.tabIndex + '';
-        this.editableTabs.push({
-          title: 'New Tab',
-          name: newTabName
-        });
-        this.editableTabsValue = newTabName;
+      handleEdit(index, row) {
+        console.log(index, row);
       },
-      removeTab(targetName) {
-        let tabs = this.editableTabs;
-        let activeName = this.editableTabsValue;
-        if (activeName === targetName) {
-          tabs.forEach((tab, index) => {
-            if (tab.name === targetName) {
-              let nextTab = tabs[index + 1] || tabs[index - 1];
-              if (nextTab) {
-                activeName = nextTab.name;
-              }
-            }
-          });
-        }
-        
-        this.editableTabsValue = activeName;
-        this.editableTabs = tabs.filter(tab => tab.name !== targetName);
+      handleDelete(index, row) {
+        console.log(index, row);
       }
-    }
-}
+    },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.main{
-  background-color:#fff;
+.perMissions{
+
+}
   .search{
     margin-bottom:30px;
   }
@@ -115,5 +239,25 @@ export default {
     width:200px;
     margin-left:30px;
   }
-}
+  .form{
+    margin-left:1%;
+    p{
+      font-weight:bold;
+      color:#909399;
+      font-size:16px;
+      float:left;
+      margin-left:10px;
+    }
+    .el-button{
+      float:right;
+      margin-right:40px;
+      margin-top:15px;
+    }
+  }
+  .page{
+    padding:30px 0 30px 0;
+  }
+  .el-tree{
+    margin-top:20px;
+  }
 </style>

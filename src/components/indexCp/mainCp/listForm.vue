@@ -74,8 +74,10 @@
       prop="address">
     </el-table-column>
     <el-table-column
-      align="right">
-      <template slot-scope="scope">
+      min-width="200"
+      align="right"
+      label="操作">
+      <template slot-scope="scope" >
         <el-button
           size="mini"
           @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
@@ -88,11 +90,15 @@
   </el-table>
 
   <div class="page">
-    <el-pagination
-  background
-  layout="prev, pager, next"
-  :total="1000">
-</el-pagination>
+<el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage4"
+      :page-sizes="[100, 200, 300, 400]"
+      :page-size="100"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="400">
+    </el-pagination>
   </div>
 </div>
 
