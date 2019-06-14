@@ -89,6 +89,16 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="scss">
+.el-submenu__title:hover {
+    background-color: #045dbf !important;}
+    .nav{
+.el-submenu__title i{
+color:#fff !important;}
+}
+</style>
+
+
 <style scoped lang="scss">
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
@@ -96,9 +106,10 @@ export default {
   background-color:#0093ff;
   color:#fff;
 }
-.nav {
+.nav{
     width: auto;
 }
+
 .el-submenu ul li{
   background-color:#0070eb;
 }
@@ -114,9 +125,7 @@ export default {
 .el-menu-item.is-active {
     color: #fff;
 }
-.el-submenu__title i{
-    color: #fff;
-}
+
 .el-menu {
     list-style: none;
     position: relative;
