@@ -15,9 +15,9 @@
           <i class="el-icon-location"></i>
           <span slot="title">导航一</span>
         </template>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-          <el-menu-item index="1-3">选项3</el-menu-item>
+        <el-menu-item index="1-1">选项1</el-menu-item>
+        <el-menu-item index="1-2">选项2</el-menu-item>
+        <el-menu-item index="1-3">选项3</el-menu-item>
         <el-submenu index="1-4">
           <span slot="title">选项4</span>
           <el-menu-item index="1-4-1">选项1</el-menu-item>
@@ -28,9 +28,9 @@
           <i class="el-icon-location"></i>
           <span slot="title">导航一</span>
         </template>
-          <el-menu-item index="2-1">选项1</el-menu-item>
-          <el-menu-item index="2-2">选项2</el-menu-item>
-          <el-menu-item index="2-3">选项3</el-menu-item>
+        <el-menu-item index="2-1">选项1</el-menu-item>
+        <el-menu-item index="2-2">选项2</el-menu-item>
+        <el-menu-item index="2-3">选项3</el-menu-item>
         <el-submenu index="2-4">
           <span slot="title">选项4</span>
           <el-menu-item index="2-4-1">选项1</el-menu-item>
@@ -41,9 +41,9 @@
           <i class="el-icon-location"></i>
           <span slot="title">导航一</span>
         </template>
-          <el-menu-item index="3-1">选项1</el-menu-item>
-          <el-menu-item index="3-2">选项2</el-menu-item>
-          <el-menu-item index="3-3">选项3</el-menu-item>
+        <el-menu-item index="3-1">选项1</el-menu-item>
+        <el-menu-item index="3-2">选项2</el-menu-item>
+        <el-menu-item index="3-3">选项3</el-menu-item>
         <el-submenu index="3-4">
           <span slot="title">选项4</span>
           <el-menu-item index="3-4-1">选项1</el-menu-item>
@@ -54,9 +54,9 @@
           <i class="el-icon-location"></i>
           <span slot="title">导航一</span>
         </template>
-          <el-menu-item index="4-1">选项1</el-menu-item>
-          <el-menu-item index="4-2">选项2</el-menu-item>
-          <el-menu-item index="4-3">选项3</el-menu-item>
+        <el-menu-item index="4-1">选项1</el-menu-item>
+        <el-menu-item index="4-2">选项2</el-menu-item>
+        <el-menu-item index="4-3">选项3</el-menu-item>
         <el-submenu index="4-4">
           <span slot="title">选项4</span>
           <el-menu-item index="4-4-1">选项1</el-menu-item>
@@ -75,8 +75,8 @@ export default {
     };
   },
   methods: {
-    close(){
-        this.isCollapse=!this.isCollapse;
+    close() {
+      this.isCollapse = !this.isCollapse;
     },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
@@ -90,56 +90,58 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-.el-submenu__title:hover {
-    background-color: #045dbf !important;}
-    .nav{
-.el-submenu__title i{
-color:#fff !important;}
+.nav {
+  .el-submenu__title:hover {
+    background-color: #045dbf !important;
+  }
+
+  .el-submenu__title i {
+    color: #fff !important;
+  }
 }
 </style>
-
 
 <style scoped lang="scss">
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
   min-height: 100%;
-  background-color:#0093ff;
-  color:#fff;
+  background-color: #0093ff;
+  color: #fff;
 }
-.nav{
-    width: auto;
+.nav {
+  width: auto;
 }
 
-.el-submenu ul li{
-  background-color:#0070eb;
+.el-submenu ul li {
+  background-color: #0070eb;
 }
-.el-submenu span{
-  color:#fff;
+.el-submenu span {
+  color: #fff;
 }
-.el-menu-item{
-  color:#fff;
+.el-menu-item {
+  color: #fff;
 }
-.el-menu-item :hover{
-  color:#fff;
+.el-menu-item :hover {
+  color: #fff;
 }
 .el-menu-item.is-active {
-    color: #fff;
+  color: #fff;
 }
 
 .el-menu {
-    list-style: none;
-    position: relative;
-    margin: 0;
-    padding-left: 0;
-    background-color: #0093ff;
+  list-style: none;
+  position: relative;
+  margin: 0;
+  padding-left: 0;
+  background-color: #0093ff;
 }
-.el-menu{
-  background-color:#0093ff;
+.el-menu {
+  background-color: #0093ff;
 }
-.el-menu--vertical ul li{
-  background-color:#0093ff;
+.el-menu--vertical ul li {
+  background-color: #0093ff;
 }
 .el-menu--collapse {
-    width: 70px;
+  width: 70px;
 }
 </style>

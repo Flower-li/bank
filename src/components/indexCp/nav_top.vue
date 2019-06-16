@@ -14,19 +14,19 @@
 
 <script>
 export default {
-  name: 'navTop'
+  name: "navTop"
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.el-radio-group{
-  float:left;
-  margin-top:10px;
+.el-radio-group {
+  float: left;
+  margin-top: 10px;
 }
-.el-breadcrumb{
-  float:left;
-  padding-top:25px;
-  margin-left:30px;
+.el-breadcrumb {
+  float: left;
+  padding-top: 25px;
+  margin-left: 30px;
 }
 </style>
