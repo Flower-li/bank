@@ -32,7 +32,7 @@
                 type="password"
                 v-model="ruleForm.checkPass"
                 autocomplete="off"
-                placeholder="请输入密码123123"
+                placeholder="请输入密码"
                 show-password
               ></el-input>
             </el-form-item>
