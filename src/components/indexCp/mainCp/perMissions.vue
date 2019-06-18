@@ -82,9 +82,9 @@
                 >
 
                 <el-dialog
-                  title="提示"
+                  title="编辑"
                   :visible.sync="dialogVisible"
-                  width="30%"
+                  width="35%"
                   :before-close="handleClose"
                 >
                   <alertForm />
@@ -262,9 +262,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 .perMissions {
-  .el-table td.is-right,
   .el-table th.is-right {
-    text-align: left;
+    text-align: right;
   }
 }
 </style>

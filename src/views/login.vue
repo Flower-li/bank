@@ -19,10 +19,10 @@
             label-width="100px"
             class="demo-ruleForm"
           >
-            <el-form-item label="账号" prop="pass">
+            <el-form-item label="账号" prop="checkUser">
               <el-input
                 type="text"
-                v-model="ruleForm.pass"
+                v-model="ruleForm.checkUser"
                 autocomplete="on"
                 placeholder="请输入账号"
               ></el-input>
@@ -55,25 +55,9 @@ export default {
   name: "login",
   img_bk: require("../assets/images/favicon.png"),
   data() {
-    var checkAge = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error("年龄不能为空"));
-      }
-      setTimeout(() => {
-        if (!Number.isInteger(value)) {
-          callback(new Error("请输入数字值"));
-        } else {
-          if (value < 18) {
-            callback(new Error("必须年满18岁"));
-          } else {
-            callback();
-          }
-        }
-      }, 1000);
-    };
     var validatePass = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("请输入密码"));
+        callback(new Error("请输入账号"));
       } else {
         if (this.ruleForm.checkPass !== "") {
           this.$refs.ruleForm.validateField("checkPass");
@@ -84,8 +68,6 @@ export default {
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
         callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm.pass) {
-        callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
       }
@@ -93,12 +75,12 @@ export default {
     return {
       checked: false,
       ruleForm: {
-        pass: "",
+        checkUser: "",
         checkPass: "",
         age: ""
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
+        checkUser: [{ validator: validatePass, trigger: "blur" }],
         checkPass: [{ validator: validatePass2, trigger: "blur" }]
       }
     };
@@ -109,7 +91,6 @@ export default {
         if (valid) {
           this.$router.push("index");
         } else {
-          console.log("error submit!!");
           return false;
         }
       });

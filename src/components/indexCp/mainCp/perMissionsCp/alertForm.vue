@@ -7,60 +7,86 @@
       label-width="100px"
       class="demo-ruleForm"
     >
-      <el-form-item label="活动名称" prop="name">
-        <el-input v-model="ruleForm.name"></el-input>
+      <el-form-item label="用户名称" prop="name">
+        <el-input
+          v-model="ruleForm.name"
+          placeholder="请输入内容"
+          style="width:200px"
+        ></el-input>
       </el-form-item>
-      <el-form-item label="活动区域" prop="region">
-        <el-select v-model="ruleForm.region" placeholder="请选择活动区域">
-          <el-option label="区域一" value="shanghai"></el-option>
-          <el-option label="区域二" value="beijing"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="活动时间" required>
-        <el-col :span="11">
-          <el-form-item prop="date1">
-            <el-date-picker
-              type="date"
-              placeholder="选择日期"
-              v-model="ruleForm.date1"
-              style="width: 100%;"
-            ></el-date-picker>
-          </el-form-item>
-        </el-col>
-        <el-col class="line" :span="2">-</el-col>
-        <el-col :span="11">
-          <el-form-item prop="date2">
-            <el-time-picker
-              placeholder="选择时间"
-              v-model="ruleForm.date2"
-              style="width: 100%;"
-            ></el-time-picker>
-          </el-form-item>
-        </el-col>
-      </el-form-item>
-      <el-form-item label="即时配送" prop="delivery">
-        <el-switch v-model="ruleForm.delivery"></el-switch>
-      </el-form-item>
-      <el-form-item label="活动性质" prop="type">
-        <el-checkbox-group v-model="ruleForm.type">
-          <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-          <el-checkbox label="地推活动" name="type"></el-checkbox>
-          <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-          <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-        </el-checkbox-group>
-      </el-form-item>
-      <el-form-item label="特殊资源" prop="resource">
+      <el-form-item label="状态" prop="resource">
         <el-radio-group v-model="ruleForm.resource">
-          <el-radio label="线上品牌商赞助"></el-radio>
-          <el-radio label="线下场地免费"></el-radio>
+          <el-radio label="激活"></el-radio>
+          <el-radio label="锁定"></el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="活动形式" prop="desc">
-        <el-input type="textarea" v-model="ruleForm.desc"></el-input>
-      </el-form-item>
+
+      <el-row>
+        <el-col :span="11">
+          <el-form-item label="电话" prop="name">
+            <el-input
+              v-model="ruleForm.name"
+              placeholder="请输入内容"
+              style="width:100%"
+            ></el-input> </el-form-item
+        ></el-col>
+        <el-col :span="11">
+          <el-form-item label="邮箱" prop="name">
+            <el-input
+              v-model="ruleForm.name"
+              placeholder="请输入内容"
+              style="width:100%"
+            ></el-input> </el-form-item
+        ></el-col>
+      </el-row>
+
+      <el-row>
+        <el-col :span="11">
+          <el-form-item label="部门" prop="name">
+            <el-select v-model="value" filterable placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option> </el-select></el-form-item
+        ></el-col>
+        <el-col :span="11">
+          <el-form-item label="岗位" prop="name">
+            <el-select v-model="value" filterable placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option> </el-select></el-form-item
+        ></el-col>
+        <el-col :span="22">
+          <el-form-item label="角色" prop="name">
+            <el-select
+              style="width:100%"
+              v-model="value2"
+              multiple
+              filterable
+              allow-create
+              default-first-option
+              placeholder="请选择角色权限"
+            >
+              <el-option
+                v-for="item in options2"
+                :key="item.value2"
+                :label="item.label2"
+                :value="item.value2"
+              >
+              </el-option> </el-select
+          ></el-form-item>
+        </el-col>
+      </el-row>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')"
-          >立即创建</el-button
+          >保存</el-button
         >
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
@@ -119,7 +145,45 @@ export default {
           { required: true, message: "请选择活动资源", trigger: "change" }
         ],
         desc: [{ required: true, message: "请填写活动形式", trigger: "blur" }]
-      }
+      },
+      options: [
+        {
+          value: "选项1",
+          label: "黄金糕"
+        },
+        {
+          value: "选项2",
+          label: "双皮奶"
+        },
+        {
+          value: "选项3",
+          label: "蚵仔煎"
+        },
+        {
+          value: "选项4",
+          label: "龙须面"
+        },
+        {
+          value: "选项5",
+          label: "北京烤鸭"
+        }
+      ],
+      value: "",
+      options2: [
+        {
+          value2: "HTML",
+          label2: "HTML"
+        },
+        {
+          value2: "CSS",
+          label2: "CSS"
+        },
+        {
+          value2: "JavaScript",
+          label2: "JavaScript"
+        }
+      ],
+      value2: []
     };
   },
   methods: {

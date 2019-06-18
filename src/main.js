@@ -4,6 +4,12 @@ import router from "./router";
 import store from "./store";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
+import axios from "axios";
+Vue.prototype.$axios = axios;
+import QS from "qs";
+
+Vue.prototype.qs = QS;
+Vue.prototype.$axios = axios;
 
 Vue.use(ElementUI);
 
