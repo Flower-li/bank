@@ -8,7 +8,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="6" offset="15">
+      <el-col :span="6" :offset="15">
         <div class="grid-content bg-purple logintext">
           <p>登录系统</p>
           <el-form
@@ -51,6 +51,8 @@
 </template>
 
 <script>
+import { login } from "../api/login";
+
 export default {
   name: "login",
   img_bk: require("../assets/images/favicon.png"),
@@ -85,6 +87,9 @@ export default {
       }
     };
   },
+  mounted() {
+    login().then(rsp => console.log(rsp.data));
+  },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
@@ -99,19 +104,6 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }
-  },
-  created() {
-    this.$axios
-      .post("http://172.17.5.221:8090/auth/login", {
-        username: "admin",
-        password: "123456"
-      })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(error => {
-        console.log(error);
-      });
   }
 };
 </script>
