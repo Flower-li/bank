@@ -91,6 +91,7 @@ export default {
         if (valid) {
           this.$router.push("index");
         } else {
+          console.log("error");
           return false;
         }
       });
@@ -98,6 +99,19 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     }
+  },
+  created() {
+    this.$axios
+      .post("http://172.17.5.221:8090/auth/login", {
+        username: "admin",
+        password: "123456"
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 };
 </script>
