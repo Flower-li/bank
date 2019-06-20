@@ -42,7 +42,6 @@
               !search || data.name.toLowerCase().includes(search.toLowerCase())
           )
         "
-        border
         style="width: 99%"
       >
         <el-table-column label="Date" prop="date"> </el-table-column>
@@ -54,10 +53,19 @@
         <el-table-column label="Name" prop="name"> </el-table-column>
         <el-table-column label="地址" prop="address"> </el-table-column>
         <el-table-column min-width="200" align="right" label="操作">
-          <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+          <template>
+            <el-button size="mini" @click="dialogVisible = true"
               >Edit</el-button
             >
+
+            <el-dialog
+              title="编辑"
+              :visible.sync="dialogVisible"
+              width="35%"
+              :before-close="handleClose"
+            >
+              <alertForm />
+            </el-dialog>
 
             <el-button size="mini" type="danger" @click="handleDelete"
               >Delete</el-button
@@ -83,10 +91,15 @@
 </template>
 
 <script>
+import alertForm from "@/components/indexCp/mainCp/perMissionsCp/alertForm.vue";
 export default {
   name: "listForm",
+  components: {
+    alertForm
+  },
   data() {
     return {
+      dialogVisible: false,
       tableData: [
         {
           date: "2016-05-02",
@@ -136,8 +149,12 @@ export default {
     };
   },
   methods: {
-    handleEdit(index, row) {
-      console.log(index, row);
+    handleClose(done) {
+      this.$confirm("确认关闭？")
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
     },
     handleDelete() {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
@@ -164,6 +181,16 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="scss">
+.list_index {
+  .el-table th.is-right {
+    text-align: left !important ;
+  }
+  .el-table td.is-right {
+    text-align: left !important ;
+  }
+}
+</style>
 <style scoped lang="scss">
 .search {
   margin-bottom: 30px;
@@ -174,6 +201,18 @@ export default {
 }
 .form {
   margin-left: 1%;
+  p {
+    font-weight: bold;
+    color: #909399;
+    font-size: 16px;
+    float: left;
+    margin-left: 10px;
+  }
+  .el-button {
+    float: right;
+    margin-right: 40px;
+    margin-top: 15px;
+  }
 }
 .page {
   padding: 30px 0 30px 0;

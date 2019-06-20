@@ -299,8 +299,4 @@ export default {
 .el-tree {
   margin-top: 20px;
 }
-.el-table td.is-right,
-.el-table th.is-right {
-  text-align: left;
-}
 </style>
