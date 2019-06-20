@@ -19,7 +19,6 @@
         :name="item.name"
       >
         <perMissions />
-        <listForm />
       </el-tab-pane>
     </el-tabs>
   </div>
