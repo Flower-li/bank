@@ -263,7 +263,10 @@ export default {
 <style lang="scss">
 .perMissions {
   .el-table th.is-right {
-    text-align: right;
+    text-align: left !important ;
+  }
+  .el-table td.is-right {
+    text-align: left !important ;
   }
 }
 </style>

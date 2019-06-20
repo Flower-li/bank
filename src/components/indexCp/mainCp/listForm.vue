@@ -58,6 +58,7 @@
             <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
               >Edit</el-button
             >
+
             <el-button size="mini" type="danger" @click="handleDelete"
               >Delete</el-button
             >
