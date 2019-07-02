@@ -19,6 +19,7 @@
         :name="item.name"
       >
         <perMissions />
+        <component :is="'perMissions'"/>
       </el-tab-pane>
     </el-tabs>
   </div>

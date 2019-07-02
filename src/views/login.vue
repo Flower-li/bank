@@ -11,37 +11,28 @@
       <el-col :span="6" :offset="15">
         <div class="grid-content bg-purple logintext">
           <p>登录系统</p>
-          <el-form
-            :model="ruleForm"
-            status-icon
-            :rules="rules"
-            ref="ruleForm"
-            label-width="100px"
-            class="demo-ruleForm"
-          >
-            <el-form-item label="账号" prop="checkUser">
+          <el-form status-icon label-width="100px" class="demo-ruleForm">
+            <el-form-item label="账号">
               <el-input
                 type="text"
-                v-model="ruleForm.checkUser"
                 autocomplete="on"
                 placeholder="请输入账号"
+                v-model="userName"
               ></el-input>
             </el-form-item>
-            <el-form-item label="密码" prop="checkPass">
+            <el-form-item label="密码">
               <el-input
                 type="password"
-                v-model="ruleForm.checkPass"
                 autocomplete="off"
                 placeholder="请输入密码"
                 show-password
+                v-model="passWord"
               ></el-input>
             </el-form-item>
             <el-checkbox v-model="checked">记住密码</el-checkbox>
             <el-form-item>
-              <el-button type="primary" @click="submitForm('ruleForm')"
-                >登录</el-button
-              >
-              <el-button @click="resetForm('ruleForm')">重置</el-button>
+              <el-button type="primary" @click="check">登录</el-button>
+              <el-button>重置</el-button>
             </el-form-item>
           </el-form>
         </div></el-col
@@ -57,51 +48,22 @@ export default {
   name: "login",
   img_bk: require("../assets/images/favicon.png"),
   data() {
-    var validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入账号"));
-      } else {
-        if (this.ruleForm.checkPass !== "") {
-          this.$refs.ruleForm.validateField("checkPass");
-        }
-        callback();
-      }
-    };
-    var validatePass2 = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入密码"));
-      } else {
-        callback();
-      }
-    };
     return {
       checked: false,
-      ruleForm: {
-        checkUser: "",
-        checkPass: ""
-      },
-      rules: {
-        checkUser: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }]
-      }
-    };
-  },
-  mounted() {
-    login().then(rsp => console.log(rsp.data));
+      userName: "",
+      passWord: "",
+    }
   },
   methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          this.$router.push("index");
-        } else {
-          console.log("error");
-          return false;
+    check() {
+      login(this.userName,this.passWord).then(rsp => {
+        var isLogin = rsp.data;
+        if(isLogin){
+          this.$router.push("index")
+        }else{
+          alert("登录失败")
         }
-      });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+      }).catch(console.log)
     }
   }
 };
