@@ -69,7 +69,7 @@ export default {
     };
     var validatePass2 = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("请再次输入密码"));
+        callback(new Error("请输入密码"));
       } else {
         callback();
       }
@@ -78,8 +78,7 @@ export default {
       checked: false,
       ruleForm: {
         checkUser: "",
-        checkPass: "",
-        age: ""
+        checkPass: ""
       },
       rules: {
         checkUser: [{ validator: validatePass, trigger: "blur" }],
