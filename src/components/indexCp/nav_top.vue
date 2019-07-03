@@ -14,7 +14,18 @@
 
 <script>
 export default {
-  name: "navTop"
+  name: "navTop",
+  data() {
+    return {
+      isCollapse: false
+    };
+  },
+  methods: {
+    close() {
+      this.isCollapse = !this.isCollapse;
+      this.$emit("close", isCollapse);
+    }
+  }
 };
 </script>
 

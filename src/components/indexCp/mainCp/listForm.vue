@@ -184,7 +184,7 @@ export default {
 <style lang="scss">
 .list_index {
   .el-table th.is-right {
-    text-align: left !important ;
+    padding-right: 40px !important ;
   }
   .el-table td.is-right {
     text-align: left !important ;

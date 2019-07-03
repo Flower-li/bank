@@ -51,19 +51,21 @@ export default {
     return {
       checked: false,
       userName: "",
-      passWord: "",
-    }
+      passWord: ""
+    };
   },
   methods: {
     check() {
-      login(this.userName,this.passWord).then(rsp => {
-        var isLogin = rsp.data;
-        if(isLogin){
-          this.$router.push("index")
-        }else{
-          alert("登录失败")
-        }
-      }).catch(console.log)
+      login(this.userName, this.passWord)
+        .then(rsp => {
+          var isLogin = rsp.data;
+          if (isLogin) {
+            this.$router.push("index");
+          } else {
+            alert("登录失败");
+          }
+        })
+        .catch(console.log);
     }
   }
 };

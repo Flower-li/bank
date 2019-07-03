@@ -18,8 +18,7 @@
         :label="item.title"
         :name="item.name"
       >
-        <perMissions />
-        <component :is="'perMissions'"/>
+        <component :is="'perMissions'" />
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -81,5 +80,10 @@ export default {
 <style scoped lang="scss">
 .main {
   background-color: #fff;
+}
+@media screen and (min-width: 1367px) {
+  .main {
+    height: 100%;
+  }
 }
 </style>

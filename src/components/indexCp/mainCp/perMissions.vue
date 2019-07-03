@@ -1,42 +1,11 @@
 <template>
   <div class="perMissions">
-    <div class="search">
-      <el-input placeholder="请输入内容" v-model="input">
-        <i slot="prefix" class="el-input__icon el-icon-search"></i>
-      </el-input>
-
-      <el-input v-model="input" placeholder="请输入内容"></el-input>
-
-      <el-select v-model="value" filterable placeholder="请选择">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        >
-        </el-option>
-      </el-select>
-
-      <el-select v-model="value" filterable placeholder="请选择">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        >
-        </el-option>
-      </el-select>
-
-      <el-button type="success" icon="el-icon-search">搜索</el-button>
-
-      <el-button type="primary" icon="el-icon-search">新增</el-button>
-
-      <el-button type="warning" icon="el-icon-search">导出</el-button>
-    </div>
-
-    <div class="form">
-      <el-row>
-        <el-col :span="4">
+    <el-row>
+      <el-col :span="4">
+        <div class="left">
+          <el-input placeholder="请输入部门查询" v-model="input">
+            <i slot="prefix" class="el-input__icon el-icon-search"></i>
+          </el-input>
           <el-row>
             <el-col>
               <p>权限设置</p>
@@ -55,8 +24,38 @@
             :props="defaultProps"
           >
           </el-tree>
-        </el-col>
-        <el-col :span="20">
+        </div>
+      </el-col>
+
+      <el-col :span="20">
+        <div class="right">
+          <el-input v-model="input" placeholder="请输入内容"></el-input>
+
+          <el-select v-model="value" filterable placeholder="类型">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+
+          <el-select v-model="value" filterable placeholder="状态">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+
+          <el-button type="success" icon="el-icon-search">搜索</el-button>
+
+          <el-button type="primary" icon="el-icon-search">新增</el-button>
+
+          <el-button type="warning" icon="el-icon-search">导出</el-button>
           <el-table
             :data="
               tableData.filter(
@@ -96,22 +95,21 @@
               </template>
             </el-table-column>
           </el-table>
-        </el-col>
-      </el-row>
-
-      <div class="page">
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage4"
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="100"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="400"
-        >
-        </el-pagination>
-      </div>
-    </div>
+        </div>
+        <div class="page">
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage4"
+            :page-sizes="[100, 200, 300, 400]"
+            :page-size="100"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="400"
+          >
+          </el-pagination>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -263,7 +261,7 @@ export default {
 <style lang="scss">
 .perMissions {
   .el-table th.is-right {
-    text-align: left !important ;
+    padding-right: 40px !important ;
   }
   .el-table td.is-right {
     text-align: left !important ;
@@ -271,14 +269,30 @@ export default {
 }
 </style>
 <style scoped lang="scss">
-.search {
-  margin-bottom: 30px;
+.left {
+  margin-left: 20px;
+  .el-input {
+    width: 90%;
+    margin-bottom: 30px;
+  }
+  p {
+    float: left;
+  }
+  .el-button {
+    float: right;
+    margin: 15px 20px 0 0;
+  }
 }
-.el-input {
-  width: 200px;
-  margin-left: 30px;
+.right {
+  .el-input {
+    width: 15%;
+    margin-bottom: 30px;
+  }
 }
-.form {
+.page {
+  margin-top: 10px;
+}
+.el-table {
   margin-left: 1%;
   p {
     font-weight: bold;
@@ -292,11 +306,5 @@ export default {
     margin-right: 40px;
     margin-top: 15px;
   }
-}
-.page {
-  padding: 30px 0 30px 0;
-}
-.el-tree {
-  margin-top: 20px;
 }
 </style>

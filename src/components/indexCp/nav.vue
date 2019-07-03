@@ -1,7 +1,6 @@
 <template>
   <div class="nav">
     <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-      <el-button @click="close">开关</el-button>
     </el-radio-group>
     <el-menu
       default-active="1-4-1"
@@ -10,6 +9,10 @@
       @close="handleClose"
       :collapse="isCollapse"
     >
+      <el-menu-item index="0">
+        <i class="el-icon-menu"></i>
+        <span slot="title">不动产系统</span>
+      </el-menu-item>
       <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-location"></i>
@@ -75,9 +78,6 @@ export default {
     };
   },
   methods: {
-    close() {
-      this.isCollapse = !this.isCollapse;
-    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -111,7 +111,9 @@ export default {
 .nav {
   width: auto;
 }
-
+.el-icon-menu {
+  color: #fff;
+}
 .el-submenu ul li {
   background-color: #0070eb;
 }
@@ -127,7 +129,11 @@ export default {
 .el-menu-item.is-active {
   color: #fff;
 }
-
+.el-menu-item:focus,
+.el-menu-item:hover {
+  outline: 0;
+  background-color: #0093ff;
+}
 .el-menu {
   list-style: none;
   position: relative;
