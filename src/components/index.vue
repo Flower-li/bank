@@ -2,14 +2,13 @@
   <div class="index">
     <el-container style="border: 1px solid #eee">
       <el-aside style="width:auto; background-color: #0093ff">
-        <IndexNav />
+        <IndexNav :isCollapse="isCollapse" />
       </el-aside>
 
       <el-container>
         <el-header style="text-align: left; font-size: 12px">
-          <navTop />
+          <navTop v-on:close="close" />
         </el-header>
-
         <el-main>
           <IndexMain />
         </el-main>
@@ -28,6 +27,16 @@ export default {
     IndexNav,
     IndexMain,
     navTop
+  },
+  data() {
+    return {
+      isCollapse: false
+    };
+  },
+  methods: {
+    close(isCollapse) {
+      this.isCollapse = isCollapse;
+    }
   }
 };
 </script>

@@ -1,4 +1,4 @@
 import request from "../request";
-export function login(userName, passWord) {
-  return request.post("/li", { userName, passWord });
+export function login(username, password) {
+  return request.post("/login", { username, password });
 }

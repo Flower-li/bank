@@ -23,7 +23,7 @@ export default {
   methods: {
     close() {
       this.isCollapse = !this.isCollapse;
-      this.$emit("close", isCollapse);
+      this.$emit("close", this.isCollapse);
     }
   }
 };

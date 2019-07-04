@@ -17,7 +17,7 @@
                 type="text"
                 autocomplete="on"
                 placeholder="请输入账号"
-                v-model="userName"
+                v-model="username"
               ></el-input>
             </el-form-item>
             <el-form-item label="密码">
@@ -26,7 +26,7 @@
                 autocomplete="off"
                 placeholder="请输入密码"
                 show-password
-                v-model="passWord"
+                v-model="password"
               ></el-input>
             </el-form-item>
             <el-checkbox v-model="checked">记住密码</el-checkbox>
@@ -50,22 +50,22 @@ export default {
   data() {
     return {
       checked: false,
-      userName: "",
-      passWord: ""
+      username: "",
+      password: ""
     };
   },
   methods: {
     check() {
-      login(this.userName, this.passWord)
+      login(this.username, this.password)
         .then(rsp => {
-          var isLogin = rsp.data;
-          if (isLogin) {
+          var isLogin = rsp.status;
+          if (isLogin === 200) {
             this.$router.push("index");
-          } else {
-            alert("登录失败");
-          }
+          } 
         })
-        .catch(console.log);
+        .catch(err =>{
+           alert(err.response.data.message)
+        });
     }
   }
 };
