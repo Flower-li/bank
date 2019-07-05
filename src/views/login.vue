@@ -42,7 +42,8 @@
 </template>
 
 <script>
-import { login } from "../api/login";
+import Axios from "axios";
+import { readFileSync } from "fs";
 
 export default {
   name: "login",
@@ -56,15 +57,19 @@ export default {
   },
   methods: {
     check() {
-      login(this.username, this.password)
+      this.$axios
+        .post("http://10.48.230.74:8092/auth/login", {
+          username: this.username,
+          password: this.password
+        })
         .then(rsp => {
           var isLogin = rsp.status;
           if (isLogin === 200) {
             this.$router.push("index");
-          } 
+          }
         })
-        .catch(err =>{
-           alert(err.response.data.message)
+        .catch(err => {
+          alert(err.response.data.message);
         });
     }
   }

@@ -3,36 +3,22 @@
     <el-row>
       <el-col :span="4">
         <div class="left">
-          <el-input placeholder="请输入查询" v-model="input">
+          <el-input placeholder="请输入部门查询" v-model="inputDp">
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
           </el-input>
           <el-row>
             <el-col>
-              <p>{{ radio }}</p>
-              <el-button size="mini" type="primary">
-                保存
-              </el-button>
+              <p>权限设置</p>
             </el-col>
           </el-row>
 
           <el-tree
-            :data="data2"
+            :data="data"
             show-checkbox
             node-key="id"
             :default-expanded-keys="[2, 3]"
             :default-checked-keys="[5]"
             :props="defaultProps"
-            v-show="isRadio"
-          >
-          </el-tree>
-          <el-tree
-            :data="data"
-            show-checkbox
-            node-key="id"
-            :default-expanded-keys="[1, 3]"
-            :default-checked-keys="[5]"
-            :props="defaultProps"
-            v-show="! isRadio"
           >
           </el-tree>
         </div>
@@ -40,21 +26,33 @@
 
       <el-col :span="20">
         <div class="right">
-          <div class="search">
-            <el-radio-group v-model="radio" @change="change()">
-              <el-radio-button label="菜单分配"></el-radio-button>
-              <el-radio-button label="权限分配"></el-radio-button>
-            </el-radio-group>
-            <el-button
-              type="primary"
-              icon="el-icon-search"
-              style="margin-right:50px;"
-              >新增</el-button
-            >
-            <el-button type="success" icon="el-icon-search">搜索</el-button>
+          <el-input v-model="inputSh" placeholder="请输入内容"></el-input>
 
-            <el-input v-model="input" placeholder="搜索"></el-input>
-          </div>
+          <el-select v-model="type" filterable placeholder="类型">
+            <el-option
+              v-for="item in types"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+
+          <el-select v-model="state" filterable placeholder="状态">
+            <el-option
+              v-for="item in states"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+
+          <el-button type="success" icon="el-icon-search">搜索</el-button>
+
+          <el-button type="primary" icon="el-icon-search">新增</el-button>
+
+          <el-button type="warning" icon="el-icon-search">导出</el-button>
           <el-table
             :data="
               tableData.filter(
@@ -71,7 +69,10 @@
             <el-table-column label="Name" prop="name"> </el-table-column>
             <el-table-column label="Name" prop="name"> </el-table-column>
             <el-table-column label="Name" prop="name"> </el-table-column>
-            <el-table-column label="Name" prop="name"> </el-table-column>
+            <el-table-column label="激活状态" prop="isActivate"
+              ><el-tag v-show="isActivate">激活</el-tag>
+              <el-tag v-show="!isActivate">锁定</el-tag>
+            </el-table-column>
             <el-table-column label="地址" prop="address"> </el-table-column>
             <el-table-column min-width="200" align="right" label="操作">
               <template>
@@ -118,37 +119,41 @@ export default {
   components: {
     alertForm
   },
-  name: "perMissions",
+  name: "user",
   data() {
     return {
-      radio: "菜单分配",
-      isRadio: true,
       dialogVisible: false,
-      input: "",
+      inputDp: "",
+      inputSh:'',
       tableData: [
         {
           date: "2016-05-02",
           name: "王小虎",
+          isActivate: true,
           address: "上海市普陀区金沙江路 1518 弄"
         },
         {
           date: "2016-05-04",
           name: "王小虎",
+          isActivate: false,
           address: "上海市普陀区金沙江路 1517 弄"
         },
         {
           date: "2016-05-01",
           name: "王小虎",
+          isActivate: false,
           address: "上海市普陀区金沙江路 1519 弄"
         },
         {
           date: "2016-05-03",
           name: "王小虎",
+          isActivate: true,
           address: "上海市普陀区金沙江路 1516 弄"
         }
       ],
       search: "",
-      options: [
+      type:'',
+      types: [
         {
           value: "选项1",
           label: "黄金糕"
@@ -156,75 +161,23 @@ export default {
         {
           value: "选项2",
           label: "双皮奶"
-        },
-        {
-          value: "选项3",
-          label: "蚵仔煎"
-        },
-        {
-          value: "选项4",
-          label: "龙须面"
-        },
-        {
-          value: "选项5",
-          label: "北京烤鸭"
         }
       ],
-      value: "",
+      state: "",
+      states: [
+        {
+          value: "选项1",
+          label: "状态1"
+        },
+        {
+          value: "选项2",
+          label: "双皮奶"
+        }
+      ],
       data: [
         {
           id: 1,
           label: "一级 1",
-          children: [
-            {
-              id: 4,
-              label: "二级 1-1",
-              children: [
-                {
-                  id: 9,
-                  label: "三级 1-1-1"
-                },
-                {
-                  id: 10,
-                  label: "三级 1-1-2"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          id: 2,
-          label: "一级 2",
-          children: [
-            {
-              id: 5,
-              label: "二级 2-1"
-            },
-            {
-              id: 6,
-              label: "二级 2-2"
-            }
-          ]
-        },
-        {
-          id: 3,
-          label: "一级 3",
-          children: [
-            {
-              id: 7,
-              label: "二级 3-1"
-            },
-            {
-              id: 8,
-              label: "二级 3-2"
-            }
-          ]
-        }
-      ],
-      data2: [
-        {
-          id: 1,
-          label: "一级 123123121",
           children: [
             {
               id: 4,
@@ -278,9 +231,6 @@ export default {
     };
   },
   methods: {
-    change(isRadio) {
-      this.isRadio = !this.isRadio;
-    },
     handleClose(done) {
       this.$confirm("确认关闭？")
         .then(_ => {
@@ -339,16 +289,9 @@ export default {
   }
 }
 .right {
-  .search {
-    .el-button {
-      float: right;
-      margin-right: 10px;
-    }
-    .el-input {
-      width: 35%;
-      margin-bottom: 30px;
-      float: right;
-    }
+  .el-input {
+    width: 15%;
+    margin-bottom: 30px;
   }
 }
 .page {

@@ -19,6 +19,7 @@
         :name="item.name"
       >
         <component :is="'perMissions'" />
+                <component :is="'user'" />
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -27,11 +28,13 @@
 <script>
 import listForm from "@/components/indexCp/mainCp/listForm.vue";
 import perMissions from "@/components/indexCp/mainCp/perMissions.vue";
+import user from "@/components/indexCp/mainCp/user.vue";
 export default {
   name: "IndexMain",
   components: {
     listForm,
-    perMissions
+    perMissions,
+    user
   },
   data() {
     return {
