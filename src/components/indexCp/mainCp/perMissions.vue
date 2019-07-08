@@ -32,7 +32,7 @@
             :default-expanded-keys="[1, 3]"
             :default-checked-keys="[5]"
             :props="defaultProps"
-            v-show="! isRadio"
+            v-show="!isRadio"
           >
           </el-tree>
         </div>
@@ -80,12 +80,12 @@
                 >
 
                 <el-dialog
-                  title="编辑"
+                  title="编辑角色"
                   :visible.sync="dialogVisible"
-                  width="35%"
+                  width="25%"
                   :before-close="handleClose"
                 >
-                  <alertForm />
+                  <userCp />
                 </el-dialog>
 
                 <el-button size="mini" type="danger" @click="handleDelete"
@@ -113,10 +113,10 @@
 </template>
 
 <script>
-import alertForm from "@/components/indexCp/mainCp/perMissionsCp/alertForm.vue";
+import userCp from "@/components/indexCp/mainCp/userCp/userCp.vue";
 export default {
   components: {
-    alertForm
+    userCp
   },
   name: "perMissions",
   data() {

@@ -1,5 +1,5 @@
 <template>
-  <div class="perMissions">
+  <div class="user">
     <el-row>
       <el-col :span="4">
         <div class="left">
@@ -8,7 +8,7 @@
           </el-input>
           <el-row>
             <el-col>
-              <p>权限设置</p>
+              <p>菜单管理</p>
             </el-col>
           </el-row>
 
@@ -124,7 +124,7 @@ export default {
     return {
       dialogVisible: false,
       inputDp: "",
-      inputSh:'',
+      inputSh: "",
       tableData: [
         {
           date: "2016-05-02",
@@ -152,7 +152,7 @@ export default {
         }
       ],
       search: "",
-      type:'',
+      type: "",
       types: [
         {
           value: "选项1",
@@ -264,7 +264,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-.perMissions {
+.user {
   .el-table th.is-right {
     padding-right: 40px !important ;
   }

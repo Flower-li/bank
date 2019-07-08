@@ -18,8 +18,16 @@
         :label="item.title"
         :name="item.name"
       >
-        <component :is="'perMissions'" />
-                <component :is="'user'" />
+        <!-- <component :is="'perMissions'" />
+        <component :is="'user'" />
+        <component :is="'listForm'" /> -->
+        <!-- <component :is="'roles'"/> -->
+        <!-- <component :is="'menuList'"/> -->
+        <!-- <component :is="'dept'" /> -->
+        <!-- <component :is="'job'" /> -->
+        <!-- <component :is="'dict'" /> -->
+        <!-- <component :is="'logs'" /> -->
+        <component :is="'errorLogs'" />
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -29,12 +37,26 @@
 import listForm from "@/components/indexCp/mainCp/listForm.vue";
 import perMissions from "@/components/indexCp/mainCp/perMissions.vue";
 import user from "@/components/indexCp/mainCp/user.vue";
+import roles from "@/components/indexCp/mainCp/roles.vue";
+import menuList from "@/components/indexCp/mainCp/menuList.vue";
+import dept from "@/components/indexCp/mainCp/dept.vue";
+import job from "@/components/indexCp/mainCp/job.vue";
+import dict from "@/components/indexCp/mainCp/dict.vue";
+import logs from "@/components/indexCp/mainCp/logs.vue";
+import errorLogs from "@/components/indexCp/mainCp/errorLogs.vue";
 export default {
   name: "IndexMain",
   components: {
     listForm,
     perMissions,
-    user
+    user,
+    roles,
+    menuList,
+    dept,
+    job,
+    dict,
+    logs,
+    errorLogs
   },
   data() {
     return {
