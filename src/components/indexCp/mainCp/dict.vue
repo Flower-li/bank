@@ -1,146 +1,148 @@
 <template>
   <div class="dict">
-<el-row>
-    <el-col :span="8">
-    <div class="left">
-      <el-row>
-        <el-col >
-          <p>字典列表</p>
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
-          <el-select v-model="value" filterable placeholder="类型">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            >
-            </el-option>
-          </el-select>
-          <el-button type="success" icon="el-icon-search">搜索</el-button>
-          <el-button type="primary" icon="el-icon-search">新增</el-button>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col>
-          <div class="form">
-            <el-table
-              :data="
-                tableData.filter(
-                  data =>
-                    !search ||
-                    data.name.toLowerCase().includes(search.toLowerCase())
-                )
-              "
-              style="width: 99%"
-            >
-              <el-table-column label="Date" prop="date"> </el-table-column>
-              <el-table-column label="Name" prop="name"> </el-table-column>
-              <el-table-column min-width="60" align="right" label="操作">
-                <template>
-                  <el-button size="mini" @click="dialogVisible = true"
-                    >Edit</el-button
+    <el-row>
+      <el-col :span="8">
+        <div class="left">
+          <el-row>
+            <el-col>
+              <p>字典列表</p>
+              <el-input v-model="input" placeholder="请输入内容"></el-input>
+              <el-select v-model="value" filterable placeholder="类型">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                >
+                </el-option>
+              </el-select>
+              <el-button type="success" icon="el-icon-search">搜索</el-button>
+              <el-button type="primary" icon="el-icon-search">新增</el-button>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col>
+              <div class="form">
+                <el-table
+                  :data="
+                    tableData.filter(
+                      data =>
+                        !search ||
+                        data.name.toLowerCase().includes(search.toLowerCase())
+                    )
+                  "
+                  style="width: 99%"
+                >
+                  <el-table-column label="Date" prop="date"> </el-table-column>
+                  <el-table-column label="Name" prop="name"> </el-table-column>
+                  <el-table-column min-width="60" align="right" label="操作">
+                    <template>
+                      <el-button size="mini" @click="dialogVisible = true"
+                        >Edit</el-button
+                      >
+
+                      <el-dialog
+                        title="编辑"
+                        :visible.sync="dialogVisible"
+                        width="25%"
+                        :before-close="handleClose"
+                      >
+                        <dictCp />
+                      </el-dialog>
+
+                      <el-button size="mini" type="danger" @click="handleDelete"
+                        >Delete</el-button
+                      >
+                    </template>
+                  </el-table-column>
+                </el-table>
+
+                <div class="page">
+                  <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage4"
+                    :page-sizes="[100, 200, 300, 400]"
+                    :page-size="100"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="400"
                   >
+                  </el-pagination>
+                </div>
+              </div>
+            </el-col>
+          </el-row>
+        </div>
+      </el-col>
 
-                  <el-dialog
-                    title="编辑"
-                    :visible.sync="dialogVisible"
-                    width="25%"
-                    :before-close="handleClose"
+      <el-col :span="16">
+        <div class="right">
+          <el-row>
+            <el-col>
+              <p>字典详情</p>
+              <el-input
+                v-model="input"
+                placeholder="请输入字典标签查询"
+              ></el-input>
+              <el-button type="success" icon="el-icon-search">搜索</el-button>
+              <el-button type="primary" icon="el-icon-search">新增</el-button>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col>
+              <div class="form">
+                <el-table
+                  :data="
+                    tableData.filter(
+                      data =>
+                        !search ||
+                        data.name.toLowerCase().includes(search.toLowerCase())
+                    )
+                  "
+                  style="width: 99%"
+                >
+                  <el-table-column label="Date" prop="date"> </el-table-column>
+                  <el-table-column label="Name" prop="name"> </el-table-column>
+                  <el-table-column min-width="60" align="right" label="操作">
+                    <template>
+                      <el-button size="mini" @click="dialogVisible = true"
+                        >Edit</el-button
+                      >
+
+                      <el-dialog
+                        title="编辑"
+                        :visible.sync="dialogVisible"
+                        width="25%"
+                        :before-close="handleClose"
+                      >
+                        <dictCp2 />
+                      </el-dialog>
+
+                      <el-button size="mini" type="danger" @click="handleDelete"
+                        >Delete</el-button
+                      >
+                    </template>
+                  </el-table-column>
+                </el-table>
+
+                <div class="page">
+                  <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page="currentPage4"
+                    :page-sizes="[100, 200, 300, 400]"
+                    :page-size="100"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="400"
                   >
-                    <dictCp />
-                  </el-dialog>
-
-                  <el-button size="mini" type="danger" @click="handleDelete"
-                    >Delete</el-button
-                  >
-                </template>
-              </el-table-column>
-            </el-table>
-
-            <div class="page">
-              <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page="currentPage4"
-                :page-sizes="[100, 200, 300, 400]"
-                :page-size="100"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="400"
-              >
-              </el-pagination>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
-    </el-col>
-
-
-    <el-col :span="16">
-    <div class="right">
-      <el-row>
-        <el-col>
-          <p>字典详情</p>
-          <el-input v-model="input" placeholder="请输入字典标签查询"></el-input>
-          <el-button type="success" icon="el-icon-search">搜索</el-button>
-          <el-button type="primary" icon="el-icon-search">新增</el-button>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col>
-          <div class="form">
-            <el-table
-              :data="
-                tableData.filter(
-                  data =>
-                    !search ||
-                    data.name.toLowerCase().includes(search.toLowerCase())
-                )
-              "
-              style="width: 99%"
-            >
-              <el-table-column label="Date" prop="date"> </el-table-column>
-              <el-table-column label="Name" prop="name"> </el-table-column>
-              <el-table-column min-width="60" align="right" label="操作">
-                <template>
-                  <el-button size="mini" @click="dialogVisible = true"
-                    >Edit</el-button
-                  >
-
-                  <el-dialog
-                    title="编辑"
-                    :visible.sync="dialogVisible"
-                    width="25%"
-                    :before-close="handleClose"
-                  >
-                    <dictCp2 />
-                  </el-dialog>
-
-                  <el-button size="mini" type="danger" @click="handleDelete"
-                    >Delete</el-button
-                  >
-                </template>
-              </el-table-column>
-            </el-table>
-
-            <div class="page">
-              <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page="currentPage4"
-                :page-sizes="[100, 200, 300, 400]"
-                :page-size="100"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="400"
-              >
-              </el-pagination>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
-    </el-col>
-</el-row>
+                  </el-pagination>
+                </div>
+              </div>
+            </el-col>
+          </el-row>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -302,7 +304,7 @@ export default {
     }
   }
   .page {
-    float:right;
+    float: right;
     padding: 30px 0 30px 0;
   }
 }

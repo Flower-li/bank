@@ -35,13 +35,13 @@
               placeholder="请选择"
               style="width:300px"
             >
-            <el-tree
-              :data="data"
-              :props="defaultProps"
-              accordion
-              :label="data.label"
-            >
-            </el-tree> </el-select></el-form-item
+              <el-tree
+                :data="data"
+                :props="defaultProps"
+                accordion
+                :label="data.label"
+              >
+              </el-tree> </el-select></el-form-item
         ></el-col>
       </el-row>
       <el-row>

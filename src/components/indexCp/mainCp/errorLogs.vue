@@ -47,7 +47,7 @@
               width="75%"
               :before-close="handleClose"
             >
-             <div>12312313wdsjfhkasjdhfhkjsadbfkjsabdfjkbasdkjfb</div>
+              <div>12312313wdsjfhkasjdhfhkjsadbfkjsabdfjkbasdkjfb</div>
             </el-dialog>
           </template>
         </el-table-column>
