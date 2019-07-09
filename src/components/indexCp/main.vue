@@ -27,7 +27,10 @@
         <!-- <component :is="'job'" /> -->
         <!-- <component :is="'dict'" /> -->
         <!-- <component :is="'logs'" /> -->
-        <component :is="'errorLogs'" />
+        <!-- <component :is="'errorLogs'" /> -->
+        <!-- <component :is="'timing'" /> -->
+        <!-- <component :is="'generator'" /> -->
+        <component :is="'Email'" />
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -44,6 +47,9 @@ import job from "@/components/indexCp/mainCp/job.vue";
 import dict from "@/components/indexCp/mainCp/dict.vue";
 import logs from "@/components/indexCp/mainCp/logs.vue";
 import errorLogs from "@/components/indexCp/mainCp/errorLogs.vue";
+import timing from "@/components/indexCp/mainCp/timing.vue";
+import generator from "@/components/indexCp/mainCp/generator.vue";
+import Email from "@/components/indexCp/mainCp/Email.vue";
 export default {
   name: "IndexMain",
   components: {
@@ -56,7 +62,10 @@ export default {
     job,
     dict,
     logs,
-    errorLogs
+    errorLogs,
+    timing,
+    generator,
+    Email
   },
   data() {
     return {
