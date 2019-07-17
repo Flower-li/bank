@@ -37,34 +37,34 @@
 </template>
 
 <script>
-import listForm from "@/components/indexCp/mainCp/listForm.vue";
-import perMissions from "@/components/indexCp/mainCp/perMissions.vue";
-import user from "@/components/indexCp/mainCp/user.vue";
-import roles from "@/components/indexCp/mainCp/roles.vue";
-import menuList from "@/components/indexCp/mainCp/menuList.vue";
-import dept from "@/components/indexCp/mainCp/dept.vue";
-import job from "@/components/indexCp/mainCp/job.vue";
-import dict from "@/components/indexCp/mainCp/dict.vue";
-import logs from "@/components/indexCp/mainCp/logs.vue";
-import errorLogs from "@/components/indexCp/mainCp/errorLogs.vue";
-import timing from "@/components/indexCp/mainCp/timing.vue";
-import generator from "@/components/indexCp/mainCp/generator.vue";
+// import listForm from "@/components/indexCp/mainCp/listForm.vue";
+// import perMissions from "@/components/indexCp/mainCp/perMissions.vue";
+// import user from "@/components/indexCp/mainCp/user.vue";
+// import roles from "@/components/indexCp/mainCp/roles.vue";
+// import menuList from "@/components/indexCp/mainCp/menuList.vue";
+// import dept from "@/components/indexCp/mainCp/dept.vue";
+// import job from "@/components/indexCp/mainCp/job.vue";
+// import dict from "@/components/indexCp/mainCp/dict.vue";
+// import logs from "@/components/indexCp/mainCp/logs.vue";
+// import errorLogs from "@/components/indexCp/mainCp/errorLogs.vue";
+// import timing from "@/components/indexCp/mainCp/timing.vue";
+// import generator from "@/components/indexCp/mainCp/generator.vue";
 import Email from "@/components/indexCp/mainCp/Email.vue";
 export default {
   name: "IndexMain",
   components: {
-    listForm,
-    perMissions,
-    user,
-    roles,
-    menuList,
-    dept,
-    job,
-    dict,
-    logs,
-    errorLogs,
-    timing,
-    generator,
+    // listForm,
+    // perMissions,
+    // user,
+    // roles,
+    // menuList,
+    // dept,
+    // job,
+    // dict,
+    // logs,
+    // errorLogs,
+    // timing,
+    // generator,
     Email
   },
   data() {

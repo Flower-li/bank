@@ -3,86 +3,51 @@
     <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
     </el-radio-group>
     <el-menu
-      default-active="1-4-1"
+      default-active="2-2"
       class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
       :collapse="isCollapse"
     >
       <el-menu-item index="0">
         <i class="el-icon-menu"></i>
         <span slot="title">不动产系统</span>
       </el-menu-item>
-      <el-submenu index="1">
+      <el-submenu
+        v-for="(item,index) in navList"
+        :key="index"
+        :index="item.index"
+      >
         <template slot="title">
-          <i class="el-icon-location"></i>
-          <span slot="title">导航一</span>
+          <i :class="item.meta.icon"></i>
+          <span slot="title" >{{ item.meta.title }}</span>
         </template>
-        <el-menu-item index="1-1">选项1</el-menu-item>
-        <el-menu-item index="1-2">选项2</el-menu-item>
-        <el-menu-item index="1-3">选项3</el-menu-item>
-        <el-submenu index="1-4">
-          <span slot="title">选项4</span>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-submenu index="2">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span slot="title">导航一</span>
-        </template>
-        <el-menu-item index="2-1">选项1</el-menu-item>
-        <el-menu-item index="2-2">选项2</el-menu-item>
-        <el-menu-item index="2-3">选项3</el-menu-item>
-        <el-submenu index="2-4">
-          <span slot="title">选项4</span>
-          <el-menu-item index="2-4-1">选项1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-submenu index="3">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span slot="title">导航一</span>
-        </template>
-        <el-menu-item index="3-1">选项1</el-menu-item>
-        <el-menu-item index="3-2">选项2</el-menu-item>
-        <el-menu-item index="3-3">选项3</el-menu-item>
-        <el-submenu index="3-4">
-          <span slot="title">选项4</span>
-          <el-menu-item index="3-4-1">选项1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-submenu index="4">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span slot="title">导航一</span>
-        </template>
-        <el-menu-item index="4-1">选项1</el-menu-item>
-        <el-menu-item index="4-2">选项2</el-menu-item>
-        <el-menu-item index="4-3">选项3</el-menu-item>
-        <el-submenu index="4-4">
-          <span slot="title">选项4</span>
-          <el-menu-item index="4-4-1">选项1</el-menu-item>
-        </el-submenu>
+        <el-menu-item
+          v-for="(childItem, childIndex) in (item.children)"
+          :key="childIndex"
+          :index="childItem.index"
+          >{{childItem.name }}</el-menu-item
+        >
       </el-submenu>
     </el-menu>
   </div>
 </template>
 
 <script>
+import { getNav } from "@/api/nav";
 export default {
   name: "IndexNav",
   props: ["isCollapse"],
   data() {
-    return {};
+    return {
+      navList: []
+    };
+  },
+  created() {
+    getNav().then(rsf => {
+      this.navList = rsf.data;
+      console.log(this.navList)
+    });
   },
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    }
   }
 };
 </script>
@@ -91,7 +56,7 @@ export default {
 <style lang="scss">
 .nav {
   .el-submenu__title:hover {
-    background-color: #045dbf !important;
+    background-color: #0093ff !important;
   }
 
   .el-submenu__title i {
@@ -131,7 +96,7 @@ export default {
 .el-menu-item:focus,
 .el-menu-item:hover {
   outline: 0;
-  background-color: #0093ff;
+  background-color: #045dbf;
 }
 .el-menu {
   list-style: none;

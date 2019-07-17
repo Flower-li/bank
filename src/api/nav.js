@@ -1,6 +1,6 @@
 import request from "../request";
 export function getNav() {
-  return request.post("/api/menus");
+  return request.post("/nav");
 }
 
 // import { login } from "../api/login";
