@@ -21,13 +21,15 @@
           style="width:300px"
         ></el-input>
       </el-form-item>
-
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')"
-          >发送邮件</el-button
-        >
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
-      </el-form-item>
+      <div class="text">
+        <quill-editor
+          ref="text"
+          v-model="content"
+          class="myQuillEditor"
+          :options="editorOption"
+        />
+        <el-button type="primary" @click="submit">发送邮件</el-button>
+      </div>
     </el-form>
   </div>
 </template>
@@ -37,6 +39,8 @@ export default {
   name: "deptCp",
   data() {
     return {
+      content: "",
+      editorOption: {},
       ruleForm: {
         name: "",
         region: "",
@@ -150,6 +154,9 @@ export default {
     };
   },
   methods: {
+    submit() {
+      console.log(this.$refs.text.value);
+    },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
@@ -167,6 +174,20 @@ export default {
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss"></style>
+<style lang="scss">
+.text {
+  .ql-editor {
+    height: 450px;
+  }
+}
+</style>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.text {
+  width: 98%;
+  margin: auto;
+  .el-button {
+    margin-top: 20px;
+  }
+}
+</style>

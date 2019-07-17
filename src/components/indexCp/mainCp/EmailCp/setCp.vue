@@ -14,28 +14,28 @@
           style="width:300px"
         ></el-input>
       </el-form-item>
-            <el-form-item label="发件用户名" prop="name">
+      <el-form-item label="发件用户名" prop="name">
         <el-input
           v-model="ruleForm.name"
           placeholder="请输入内容"
           style="width:300px"
         ></el-input>
       </el-form-item>
-            <el-form-item label="邮箱密码" prop="name">
+      <el-form-item label="邮箱密码" prop="name">
         <el-input
           v-model="ruleForm.name"
           placeholder="请输入内容"
           style="width:300px"
         ></el-input>
       </el-form-item>
-            <el-form-item label="SMTP地址" prop="name">
+      <el-form-item label="SMTP地址" prop="name">
         <el-input
           v-model="ruleForm.name"
           placeholder="请输入内容"
           style="width:300px"
         ></el-input>
       </el-form-item>
-            <el-form-item label="SMTP端口" prop="name">
+      <el-form-item label="SMTP端口" prop="name">
         <el-input
           v-model="ruleForm.name"
           placeholder="请输入内容"

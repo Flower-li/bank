@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 let axios = Axios.create({
-  baseURL: "http://10.48.230.74:8092/auth"
+  baseURL: "http://10.48.230.74:8092"
 });
 
 // 添加请求拦截器

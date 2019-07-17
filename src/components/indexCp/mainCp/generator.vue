@@ -28,7 +28,11 @@
         <el-table-column prop="address" label="地址"> </el-table-column>
         <el-table-column fixed="right" label="操作" width="150">
           <template>
-            <el-button type="button" class="el-button el-button--primary el-button--mini">生成代码</el-button>
+            <el-button
+              type="button"
+              class="el-button el-button--primary el-button--mini"
+              >生成代码</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -86,7 +90,4 @@ export default {
   methods: {}
 };
 </script>
-
-<style socped lang="scss">
-
-</style>
+<style></style>

@@ -1,6 +1,6 @@
 import request from "../request";
-export function login(username, password) {
-  return request.post("/login", { username, password });
+export function getNav() {
+  return request.post("/api/menus");
 }
 
 // import { login } from "../api/login";
