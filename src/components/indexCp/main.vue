@@ -4,6 +4,7 @@
       <el-button size="small" @click="addTab(editableTabsValue)">
         add tab
       </el-button>
+      <el-button size="small"> {{ navTitle }}{{ navComponent }} </el-button>
     </div>
 
     <el-tabs
@@ -52,6 +53,7 @@
 import Email from "@/components/indexCp/mainCp/Email.vue";
 export default {
   name: "IndexMain",
+  props: ["navTitle", "navComponent"],
   components: {
     // listForm,
     // perMissions,
@@ -76,15 +78,14 @@ export default {
           name: "1"
         }
       ],
-      tabIndex: 1,
-      input: ""
+      tabIndex: 1
     };
   },
   methods: {
     addTab(targetName) {
       let newTabName = ++this.tabIndex + "";
       this.editableTabs.push({
-        title: "New Tab",
+        title: "this.newTitle",
         name: newTabName
       });
       this.editableTabsValue = newTabName;

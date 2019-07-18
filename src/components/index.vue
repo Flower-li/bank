@@ -2,7 +2,7 @@
   <div class="index">
     <el-container style="border: 1px solid #eee">
       <el-aside style="width:auto; background-color: #0093ff">
-        <IndexNav :isCollapse="isCollapse" />
+        <IndexNav :isCollapse="isCollapse" @addTab="addTab" />
       </el-aside>
 
       <el-container>
@@ -10,7 +10,7 @@
           <navTop v-on:close="close" />
         </el-header>
         <el-main>
-          <IndexMain />
+          <IndexMain :navTitle="navTitle" :navComponent="navComponent" />
         </el-main>
       </el-container>
     </el-container>
@@ -30,12 +30,18 @@ export default {
   },
   data() {
     return {
-      isCollapse: false
+      isCollapse: false,
+      navTitle: "",
+      navComponent: ""
     };
   },
   methods: {
     close(isCollapse) {
       this.isCollapse = isCollapse;
+    },
+    addTab(navTitle, navComponent) {
+      this.navTitle = navTitle;
+      this.navComponent = navComponent;
     }
   }
 };

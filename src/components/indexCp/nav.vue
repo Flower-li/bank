@@ -12,19 +12,20 @@
         <span slot="title">不动产系统</span>
       </el-menu-item>
       <el-submenu
-        v-for="(item,index) in navList"
+        v-for="(item, index) in navList"
         :key="index"
         :index="item.index"
       >
         <template slot="title">
           <i :class="item.meta.icon"></i>
-          <span slot="title" >{{ item.meta.title }}</span>
+          <span slot="title">{{ item.meta.title }}</span>
         </template>
         <el-menu-item
-          v-for="(childItem, childIndex) in (item.children)"
+          v-for="(childItem, childIndex) in item.children"
           :key="childIndex"
           :index="childItem.index"
-          >{{childItem.name }}</el-menu-item
+          @click="addTab(childItem.name, childItem.component)"
+          >{{ childItem.name }}</el-menu-item
         >
       </el-submenu>
     </el-menu>
@@ -38,16 +39,22 @@ export default {
   props: ["isCollapse"],
   data() {
     return {
-      navList: []
+      navList: [],
+      navTitle: "",
+      navComponent: ""
     };
   },
   created() {
     getNav().then(rsf => {
       this.navList = rsf.data;
-      console.log(this.navList)
     });
   },
   methods: {
+    addTab(navTitle, navComponent) {
+      this.navTitle = navTitle;
+      this.navComponent = navComponent;
+      this.$emit("addTab", this.navTitle, this.navComponent);
+    }
   }
 };
 </script>
