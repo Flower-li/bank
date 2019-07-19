@@ -19,18 +19,6 @@
         :label="item.title"
         :name="item.name"
       >
-        <!-- <component :is="'perMissions'" />
-        <component :is="'user'" />
-        <component :is="'listForm'" /> -->
-        <!-- <component :is="'roles'"/> -->
-        <!-- <component :is="'menuList'"/> -->
-        <!-- <component :is="'dept'" /> -->
-        <!-- <component :is="'job'" /> -->
-        <!-- <component :is="'dict'" /> -->
-        <!-- <component :is="'logs'" /> -->
-        <!-- <component :is="'errorLogs'" /> -->
-        <!-- <component :is="'timing'" /> -->
-        <!-- <component :is="'generator'" /> -->
         <AsyncComponent :componentPath="item.component"></AsyncComponent>
       </el-tab-pane>
     </el-tabs>
@@ -57,19 +45,6 @@ export default {
   props: ["navTitle", "navComponent"],
   components: {
     AsyncComponent
-    // listForm,
-    // perMissions,
-    // user,
-    // roles,
-    // menuList,
-    // dept,
-    // job,
-    // dict,
-    // logs,
-    // errorLogs,
-    // timing,
-    // generator,
-    // Email
   },
   data() {
     return {
@@ -86,7 +61,7 @@ export default {
     };
   },
   watch: {
-    navTitle(newT, oldT) {
+    navTitle() {
       this.addTab();
     }
   },
@@ -99,6 +74,7 @@ export default {
         component: this.navComponent
       });
       this.editableTabsValue = newTabName;
+      console.log(this.editableTabs)
     },
     removeTab(targetName) {
       let tabs = this.editableTabs;
