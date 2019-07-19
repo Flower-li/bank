@@ -54,7 +54,7 @@ export default {
       this.navTitle = navTitle;
       this.navComponent = navComponent;
       this.$emit("addTab", this.navTitle, this.navComponent);
-    }
+    },
   }
 };
 </script>

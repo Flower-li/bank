@@ -31,7 +31,7 @@
         <!-- <component :is="'errorLogs'" /> -->
         <!-- <component :is="'timing'" /> -->
         <!-- <component :is="'generator'" /> -->
-        <component :is="'Email'" />
+        <AsyncComponent :componentPath="item.component"></AsyncComponent>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -50,11 +50,13 @@
 // import errorLogs from "@/components/indexCp/mainCp/errorLogs.vue";
 // import timing from "@/components/indexCp/mainCp/timing.vue";
 // import generator from "@/components/indexCp/mainCp/generator.vue";
-import Email from "@/components/indexCp/mainCp/Email.vue";
+// import Email from "@/components/indexCp/mainCp/Email.vue";
+import AsyncComponent from "@/components/indexCp/AsyncComponent.vue";
 export default {
   name: "IndexMain",
   props: ["navTitle", "navComponent"],
   components: {
+    AsyncComponent
     // listForm,
     // perMissions,
     // user,
@@ -67,26 +69,34 @@ export default {
     // errorLogs,
     // timing,
     // generator,
-    Email
+    // Email
   },
   data() {
     return {
+      nowComponent: String,
       editableTabsValue: "1",
       editableTabs: [
         {
           title: "首页",
-          name: "1"
+          name: "1",
+          component: "components/indexCp/mainCp/Email.vue"
         }
       ],
       tabIndex: 1
     };
   },
+  watch: {
+    navTitle(newT, oldT) {
+      this.addTab();
+    }
+  },
   methods: {
     addTab(targetName) {
       let newTabName = ++this.tabIndex + "";
       this.editableTabs.push({
-        title: "this.newTitle",
-        name: newTabName
+        title: this.navTitle,
+        name: newTabName,
+        component: this.navComponent
       });
       this.editableTabsValue = newTabName;
     },
