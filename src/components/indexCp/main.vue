@@ -1,12 +1,5 @@
 <template>
   <div class="main">
-    <div style="margin-bottom: 20px;">
-      <el-button size="small" @click="addTab(editableTabsValue)">
-        add tab
-      </el-button>
-      <el-button size="small"> {{ navTitle }}{{ navComponent }} </el-button>
-    </div>
-
     <el-tabs
       v-model="editableTabsValue"
       type="card"
@@ -19,18 +12,6 @@
         :label="item.title"
         :name="item.name"
       >
-        <!-- <component :is="'perMissions'" />
-        <component :is="'user'" />
-        <component :is="'listForm'" /> -->
-        <!-- <component :is="'roles'"/> -->
-        <!-- <component :is="'menuList'"/> -->
-        <!-- <component :is="'dept'" /> -->
-        <!-- <component :is="'job'" /> -->
-        <!-- <component :is="'dict'" /> -->
-        <!-- <component :is="'logs'" /> -->
-        <!-- <component :is="'errorLogs'" /> -->
-        <!-- <component :is="'timing'" /> -->
-        <!-- <component :is="'generator'" /> -->
         <AsyncComponent :componentPath="item.component"></AsyncComponent>
       </el-tab-pane>
     </el-tabs>
@@ -57,19 +38,6 @@ export default {
   props: ["navTitle", "navComponent"],
   components: {
     AsyncComponent
-    // listForm,
-    // perMissions,
-    // user,
-    // roles,
-    // menuList,
-    // dept,
-    // job,
-    // dict,
-    // logs,
-    // errorLogs,
-    // timing,
-    // generator,
-    // Email
   },
   data() {
     return {
@@ -86,12 +54,17 @@ export default {
     };
   },
   watch: {
-    navTitle(newT, oldT) {
+    navTitle() {
       this.addTab();
     }
   },
   methods: {
-    addTab(targetName) {
+    addTab() {
+      let existTab = this.editableTabs.find(f => f.title == this.navTitle);
+      if (existTab) {
+        this.editableTabsValue = existTab.name;
+        return;
+      }
       let newTabName = ++this.tabIndex + "";
       this.editableTabs.push({
         title: this.navTitle,
