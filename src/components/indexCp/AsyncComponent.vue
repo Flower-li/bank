@@ -1,18 +1,18 @@
 <template>
-       <div>
-      <component :is="nowComponent"></component>
-    </div>
+  <div>
+    <component :is="nowComponent"></component>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      nowComponent: null,
+      nowComponent: null
     };
   },
   props: {
-    componentPath: String,
+    componentPath: String
   },
   mounted() {
     this.load();
@@ -21,18 +21,15 @@ export default {
     load() {
       import(`@/${this.componentPath}`)
         .then(rsp => {
-            this.nowComponent = () => import(`@/${this.componentPath}`);
-            this.isLoading = false;
-            this.isError = false;
+          this.nowComponent = () => import(`@/${this.componentPath}`);
         })
         .catch(err => {
-            console.log(err)
+          console.log(err);
         });
     }
   }
-}
+};
 </script>
 
 <style>
-
 </style>
