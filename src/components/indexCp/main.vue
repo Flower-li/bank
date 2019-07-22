@@ -1,12 +1,5 @@
 <template>
   <div class="main">
-    <div style="margin-bottom: 20px;">
-      <el-button size="small" @click="addTab(editableTabsValue)">
-        add tab
-      </el-button>
-      <el-button size="small"> {{ navTitle }}{{ navComponent }} </el-button>
-    </div>
-
     <el-tabs
       v-model="editableTabsValue"
       type="card"
@@ -66,7 +59,12 @@ export default {
     }
   },
   methods: {
-    addTab(targetName) {
+    addTab() {
+      let existTab = this.editableTabs.find(f => f.title == this.navTitle);
+      if (existTab) {
+        this.editableTabsValue = existTab.name;
+        return;
+      }
       let newTabName = ++this.tabIndex + "";
       this.editableTabs.push({
         title: this.navTitle,
