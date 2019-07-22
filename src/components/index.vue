@@ -7,7 +7,11 @@
 
       <el-container>
         <el-header style="text-align: left; font-size: 12px">
-          <navTop v-on:close="close" />
+          <navTop
+            v-on:close="close"
+            :menuTitle="menuTitle"
+            :navTitle="navTitle"
+          />
         </el-header>
         <el-main>
           <IndexMain :navTitle="navTitle" :navComponent="navComponent" />
@@ -32,14 +36,16 @@ export default {
     return {
       isCollapse: false,
       navTitle: "",
-      navComponent: ""
+      navComponent: "",
+      menuTitle: ""
     };
   },
   methods: {
     close(isCollapse) {
       this.isCollapse = isCollapse;
     },
-    addTab(navTitle, navComponent) {
+    addTab(menuTitle, navTitle, navComponent) {
+      this.menuTitle = menuTitle;
       this.navTitle = navTitle;
       this.navComponent = navComponent;
     }

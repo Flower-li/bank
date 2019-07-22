@@ -7,7 +7,14 @@
       label-width="100px"
       class="demo-ruleForm"
     >
-      <el-form-item label="名称" prop="name">
+      <el-form-item label="字典名称" prop="name">
+        <el-input
+          v-model="ruleForm.name"
+          placeholder="请输入内容"
+          style="width:300px"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="描述" prop="name">
         <el-input
           v-model="ruleForm.name"
           placeholder="请输入内容"
@@ -15,31 +22,6 @@
         ></el-input>
       </el-form-item>
 
-      <el-form-item label="状态" prop="resource">
-        <el-radio-group v-model="ruleForm.resource">
-          <el-radio label="激活"></el-radio>
-          <el-radio label="锁定"></el-radio>
-        </el-radio-group>
-      </el-form-item>
-
-      <el-row>
-        <el-col>
-          <el-form-item label="上级类目" prop="name">
-            <el-select
-              v-model="label"
-              filterable
-              placeholder="请选择"
-              style="width:300px"
-            >
-              <el-tree
-                :data="data"
-                :props="defaultProps"
-                accordion
-                :label="data.label"
-              >
-              </el-tree> </el-select></el-form-item
-        ></el-col>
-      </el-row>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')"
           >保存</el-button

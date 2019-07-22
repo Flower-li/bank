@@ -72,7 +72,6 @@ export default {
         component: this.navComponent
       });
       this.editableTabsValue = newTabName;
-      console.log(this.editableTabs)
     },
     removeTab(targetName) {
       let tabs = this.editableTabs;
@@ -100,9 +99,9 @@ export default {
 .main {
   background-color: #fff;
 }
-@media screen and (min-width: 1367px) {
-  .main {
-    height: 100%;
-  }
-}
+// @media screen and (min-width: 1367px) {
+//   .main {
+//       // height: 100%;
+//   }
+// }
 </style>

@@ -24,7 +24,7 @@
           v-for="(childItem, childIndex) in item.children"
           :key="childIndex"
           :index="childItem.index"
-          @click="addTab(childItem.name, childItem.component)"
+          @click="addTab(item.meta.title, childItem.name, childItem.component)"
           >{{ childItem.name }}</el-menu-item
         >
       </el-submenu>
@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       navList: [],
+      menuTitle: "",
       navTitle: "",
       navComponent: ""
     };
@@ -50,11 +51,12 @@ export default {
     });
   },
   methods: {
-    addTab(navTitle, navComponent) {
+    addTab(menuTitle, navTitle, navComponent) {
+      this.menuTitle = menuTitle;
       this.navTitle = navTitle;
       this.navComponent = navComponent;
-      this.$emit("addTab", this.navTitle, this.navComponent);
-    },
+      this.$emit("addTab", this.menuTitle, this.navTitle, this.navComponent);
+    }
   }
 };
 </script>

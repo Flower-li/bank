@@ -2,6 +2,7 @@ import Axios from "axios";
 
 let axios = Axios.create({
   baseURL: "http://mock-api.com/wjzpZenX.mock"
+  // baseURL: "10.48.230.74:8092"
 });
 
 // 添加请求拦截器
