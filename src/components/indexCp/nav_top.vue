@@ -5,8 +5,10 @@
     </el-radio-group>
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item v-show="menuTitle">{{menuTitle}}</el-breadcrumb-item>
-      <el-breadcrumb-item  v-show="navTitle">{{navTitle}}</el-breadcrumb-item>
+      <el-breadcrumb-item v-show="menuTitle">{{
+        menuTitle
+      }}</el-breadcrumb-item>
+      <el-breadcrumb-item v-show="navTitle">{{ navTitle }}</el-breadcrumb-item>
     </el-breadcrumb>
   </div>
 </template>
@@ -14,7 +16,7 @@
 <script>
 export default {
   name: "navTop",
-  props:["menuTitle","navTitle"],
+  props: ["menuTitle", "navTitle"],
   data() {
     return {
       isCollapse: false

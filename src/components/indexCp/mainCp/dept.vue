@@ -27,16 +27,6 @@
             <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
               >Edit</el-button
             >
-
-            <el-dialog
-              title="编辑"
-              :visible.sync="dialogVisible"
-              width="25%"
-              :before-close="handleClose"
-            >
-              <deptCp :nowClick="nowClick" />
-            </el-dialog>
-
             <el-button
               size="mini"
               type="danger"
@@ -46,6 +36,14 @@
           </template>
         </el-table-column>
       </el-table>
+      <el-dialog
+        title="编辑"
+        :visible.sync="dialogVisible"
+        width="25%"
+        :before-close="handleClose"
+      >
+        <deptCp :nowClick="nowClick" />
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -63,7 +61,7 @@ export default {
       dialogVisible: false,
       hasChildren: true,
       tableData: [],
-      nowClick: []
+      nowClick: ""
     };
   },
   created() {
@@ -78,10 +76,10 @@ export default {
   methods: {
     handleClose(done) {
       this.$confirm("确认关闭？")
-        .then(_ => {
+        .then(() => {
           done();
         })
-        .catch(_ => {});
+        .catch(() => {});
     },
     handleEdit(index, row) {
       this.dialogVisible = true;

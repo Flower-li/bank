@@ -17,11 +17,11 @@
       <el-form-item label="证件号码" prop="zjhm">
         <el-input placeholder="请输入内容" style="width:300px"></el-input>
       </el-form-item>
-      <el-form-item label="区县" prop="qx" required>
+      <el-form-item label="区县" prop="pid">
         <el-input
           placeholder="请输入内容"
           style="width:300px"
-          v-model="ruleForm.qx"
+          v-model="ruleForm.pid"
         ></el-input>
       </el-form-item>
       <el-form-item label="备注" prop="bz">
@@ -47,18 +47,7 @@ export default {
   name: "deptCp",
   props: ["nowClick"],
   data() {
-    var checkName = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error("这是一个必须要填的框"));
-      }
-    };
-    var checkQx = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error("这是一个必须要填的框"));
-      }
-    };
     return {
-      nowClickCp: [],
       value: [],
       options: [
         {
@@ -91,25 +80,23 @@ export default {
         }
       ],
       ruleForm: {
-        name: this.nowClick.name,
+        name: "",
         zjhm: "",
-        qx: "",
+        pid: "",
         bz: ""
       },
       rules: {
-        name: [{ validator: checkName, trigger: "blur" }],
-        qx: [{ validator: checkQx, trigger: "blur" }]
+        name: [{ required: true, message: "年龄不能为空" }],
+        pid: [{ required: true, message: "年龄不能为空" }]
       }
     };
   },
   mounted() {
-    this.nowClickCp = this.nowClick;
+    this.ruleForm = this.nowClick;
   },
   watch: {
     nowClick(newData, old) {
-      this.nowClickCp = newData;
-      console.log(typeof this.nowClick);
-      console.log(this.nowClick);
+      this.ruleForm = newData;
     }
   },
   methods: {}
