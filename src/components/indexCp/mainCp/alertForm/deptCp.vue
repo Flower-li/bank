@@ -1,32 +1,42 @@
 <template>
   <div class="deptCp">
     <el-form
+      label-width="100px"
+      class="demo-ruleForm"
       :model="ruleForm"
       :rules="rules"
       ref="ruleForm"
-      label-width="100px"
-      class="demo-ruleForm"
     >
-      <el-form-item label="字典名称" prop="name">
+      <el-form-item label="名称" prop="name" required>
         <el-input
-          v-model="ruleForm.name"
           placeholder="请输入内容"
           style="width:300px"
+          v-model="ruleForm.name"
         ></el-input>
       </el-form-item>
-      <el-form-item label="描述" prop="name">
+      <el-form-item label="证件号码" prop="zjhm">
+        <el-input placeholder="请输入内容" style="width:300px"></el-input>
+      </el-form-item>
+      <el-form-item label="区县" prop="qx" required>
         <el-input
-          v-model="ruleForm.name"
           placeholder="请输入内容"
           style="width:300px"
+          v-model="ruleForm.qx"
         ></el-input>
       </el-form-item>
-
+      <el-form-item label="备注" prop="bz">
+        <el-input placeholder="请输入内容" style="width:300px"></el-input>
+      </el-form-item>
+      <el-form-item label="上级目录">
+        <el-cascader
+          v-model="value"
+          :options="options"
+          :props="{ expandTrigger: 'hover' }"
+        ></el-cascader>
+      </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')"
-          >保存</el-button
-        >
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
+        <el-button type="primary">保存</el-button>
+        <el-button>重置</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -35,135 +45,74 @@
 <script>
 export default {
   name: "deptCp",
+  props: ["nowClick"],
   data() {
+    var checkName = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("这是一个必须要填的框"));
+      }
+    };
+    var checkQx = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("这是一个必须要填的框"));
+      }
+    };
     return {
-      ruleForm: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: ""
-      },
-      rules: {
-        name: [
-          { required: true, message: "请输入活动名称", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
-        ],
-        region: [
-          { required: true, message: "请选择活动区域", trigger: "change" }
-        ],
-        date1: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择日期",
-            trigger: "change"
-          }
-        ],
-        date2: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择时间",
-            trigger: "change"
-          }
-        ],
-        type: [
-          {
-            type: "array",
-            required: true,
-            message: "请至少选择一个活动性质",
-            trigger: "change"
-          }
-        ],
-        resource: [
-          { required: true, message: "请选择活动资源", trigger: "change" }
-        ],
-        desc: [{ required: true, message: "请填写活动形式", trigger: "blur" }]
-      },
-      data: [
+      nowClickCp: [],
+      value: [],
+      options: [
         {
-          label: "一级 1",
+          value: "zhinan",
+          label: "指南",
           children: [
             {
-              label: "二级 1-1",
+              value: "shejiyuanze",
+              label: "设计原则",
               children: [
                 {
-                  label: "三级 1-1-1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          label: "一级 2",
-          children: [
-            {
-              label: "二级 2-1",
-              children: [
+                  value: "yizhi",
+                  label: "一致"
+                },
                 {
-                  label: "三级 2-1-1"
-                }
-              ]
-            },
-            {
-              label: "二级 2-2",
-              children: [
+                  value: "fankui",
+                  label: "反馈"
+                },
                 {
-                  label: "三级 2-2-1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          label: "一级 3",
-          children: [
-            {
-              label: "二级 3-1",
-              children: [
+                  value: "xiaolv",
+                  label: "效率"
+                },
                 {
-                  label: "三级 3-1-1"
-                }
-              ]
-            },
-            {
-              label: "二级 3-2",
-              children: [
-                {
-                  label: "三级 3-2-1"
+                  value: "kekong",
+                  label: "可控"
                 }
               ]
             }
           ]
         }
       ],
-      defaultProps: {
-        children: "children",
-        label: "label"
+      ruleForm: {
+        name: this.nowClick.name,
+        zjhm: "",
+        qx: "",
+        bz: ""
       },
-      value: "",
-      value2: []
+      rules: {
+        name: [{ validator: checkName, trigger: "blur" }],
+        qx: [{ validator: checkQx, trigger: "blur" }]
+      }
     };
   },
-  methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          alert("submit!");
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+  mounted() {
+    this.nowClickCp = this.nowClick;
+  },
+  watch: {
+    nowClick(newData, old) {
+      this.nowClickCp = newData;
+      console.log(typeof this.nowClick);
+      console.log(this.nowClick);
     }
-  }
+  },
+  methods: {}
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

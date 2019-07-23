@@ -24,7 +24,7 @@
         <el-table-column label="创建日期" prop="createTime"> </el-table-column>
         <el-table-column min-width="200" align="right" label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" @click="dialogVisible = true"
+            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
               >Edit</el-button
             >
 
@@ -34,7 +34,7 @@
               width="25%"
               :before-close="handleClose"
             >
-              <deptCp />
+              <deptCp :nowClick="nowClick" />
             </el-dialog>
 
             <el-button
@@ -62,7 +62,8 @@ export default {
     return {
       dialogVisible: false,
       hasChildren: true,
-      tableData: []
+      tableData: [],
+      nowClick: []
     };
   },
   created() {
@@ -81,6 +82,10 @@ export default {
           done();
         })
         .catch(_ => {});
+    },
+    handleEdit(index, row) {
+      this.dialogVisible = true;
+      this.nowClick = row;
     },
     handleDelete(index, row) {
       console.log(row);
