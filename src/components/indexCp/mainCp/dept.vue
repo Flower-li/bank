@@ -42,7 +42,7 @@
         width="25%"
         :before-close="handleClose"
       >
-        <deptCp :nowClick="nowClick" />
+        <deptCp :nowClick="nowClick" :tableData="tableData" />
       </el-dialog>
     </div>
   </div>

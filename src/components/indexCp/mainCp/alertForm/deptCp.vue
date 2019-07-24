@@ -15,7 +15,11 @@
         ></el-input>
       </el-form-item>
       <el-form-item label="证件号码" prop="zjhm">
-        <el-input placeholder="请输入内容" style="width:300px"></el-input>
+        <el-input
+          placeholder="请输入内容"
+          style="width:300px"
+          v-model="ruleForm.zjhm"
+        ></el-input>
       </el-form-item>
       <el-form-item label="区县" prop="pid">
         <el-input
@@ -28,11 +32,13 @@
         <el-input placeholder="请输入内容" style="width:300px"></el-input>
       </el-form-item>
       <el-form-item label="上级目录">
-        <el-cascader
-          v-model="value"
+        <!-- <el-cascader
+           v-model="value"
           :options="options"
           :props="{ expandTrigger: 'hover' }"
-        ></el-cascader>
+          @change="handleChange"
+        ></el-cascader> -->
+        <treeselect v-model="value" :multiple="false" :options="options" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary">保存</el-button>
@@ -43,42 +49,17 @@
 </template>
 
 <script>
+import Treeselect from '@riophae/vue-treeselect'
+
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 export default {
+  components: { Treeselect },
   name: "deptCp",
-  props: ["nowClick"],
+  props: ["nowClick", "tableData"],
   data() {
     return {
-      value: [],
-      options: [
-        {
-          value: "zhinan",
-          label: "指南",
-          children: [
-            {
-              value: "shejiyuanze",
-              label: "设计原则",
-              children: [
-                {
-                  value: "yizhi",
-                  label: "一致"
-                },
-                {
-                  value: "fankui",
-                  label: "反馈"
-                },
-                {
-                  value: "xiaolv",
-                  label: "效率"
-                },
-                {
-                  value: "kekong",
-                  label: "可控"
-                }
-              ]
-            }
-          ]
-        }
-      ],
+      value: null,
+      options: [],
       ruleForm: {
         name: "",
         zjhm: "",
@@ -93,13 +74,19 @@ export default {
   },
   mounted() {
     this.ruleForm = this.nowClick;
+    this.options = this.tableData;
+    console.log(this.options);
   },
   watch: {
     nowClick(newData, old) {
       this.ruleForm = newData;
     }
   },
-  methods: {}
+  methods: {
+    handleChange(value) {
+      console.log(value);
+    }
+  }
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
