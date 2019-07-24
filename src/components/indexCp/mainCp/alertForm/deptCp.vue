@@ -21,24 +21,23 @@
           v-model="ruleForm.zjhm"
         ></el-input>
       </el-form-item>
-      <el-form-item label="区县" prop="pid">
+      <el-form-item label="区县" prop="qxdm">
         <el-input
           placeholder="请输入内容"
           style="width:300px"
-          v-model="ruleForm.pid"
+          v-model="ruleForm.qxdm"
         ></el-input>
       </el-form-item>
       <el-form-item label="备注" prop="bz">
         <el-input placeholder="请输入内容" style="width:300px"></el-input>
       </el-form-item>
       <el-form-item label="上级目录">
-        <!-- <el-cascader
-           v-model="value"
+        <treeselect
+          v-model="ruleForm.pid"
+          :multiple="false"
           :options="options"
-          :props="{ expandTrigger: 'hover' }"
-          @change="handleChange"
-        ></el-cascader> -->
-        <treeselect v-model="value" :multiple="false" :options="options" />
+          @select="adf"
+        />
       </el-form-item>
       <el-form-item>
         <el-button type="primary">保存</el-button>
@@ -49,22 +48,24 @@
 </template>
 
 <script>
-import Treeselect from '@riophae/vue-treeselect'
+import Treeselect from "@riophae/vue-treeselect";
 
-import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import "@riophae/vue-treeselect/dist/vue-treeselect.css";
+import { setTimeout } from "timers";
 export default {
   components: { Treeselect },
   name: "deptCp",
   props: ["nowClick", "tableData"],
   data() {
     return {
-      value: null,
       options: [],
       ruleForm: {
         name: "",
         zjhm: "",
+        qxdm: "",
+        bz: "",
         pid: "",
-        bz: ""
+        id: ""
       },
       rules: {
         name: [{ required: true, message: "年龄不能为空" }],
@@ -74,8 +75,14 @@ export default {
   },
   mounted() {
     this.ruleForm = this.nowClick;
+    let deleteChildren = arr => {
+      for (const item of arr) {
+        if (item.children == null) delete item.children;
+        else deleteChildren(item.children);
+      }
+    };
+    deleteChildren(this.tableData);
     this.options = this.tableData;
-    console.log(this.options);
   },
   watch: {
     nowClick(newData, old) {
@@ -83,13 +90,22 @@ export default {
     }
   },
   methods: {
-    handleChange(value) {
-      console.log(value);
+    adf(node, id) {
+      setTimeout(() => {
+        console.log(this.ruleForm.id);
+        console.log(this.ruleForm.pid);
+      }, 200);
     }
   }
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss"></style>
+<style lang="scss">
+.deptCp {
+  .vue-treeselect__control {
+    width: 300px !important ;
+  }
+}
+</style>
 
 <style scoped lang="scss"></style>

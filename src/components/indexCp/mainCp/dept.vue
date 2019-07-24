@@ -5,7 +5,9 @@
 
       <el-button type="success" icon="el-icon-search">搜索</el-button>
 
-      <el-button type="primary" icon="el-icon-search">新增</el-button>
+      <el-button type="primary" icon="el-icon-search" @click="handleNew()"
+        >新增</el-button
+      >
 
       <el-button type="warning" icon="el-icon-search">导出</el-button>
     </div>
@@ -19,7 +21,7 @@
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
         <el-table-column label="名称" prop="name"> </el-table-column>
-        <el-table-column label="区县" prop="pid"> </el-table-column>
+        <el-table-column label="区县" prop="qxdm"> </el-table-column>
         <el-table-column label="证件号码" prop="zjhm"> </el-table-column>
         <el-table-column label="创建日期" prop="createTime"> </el-table-column>
         <el-table-column min-width="200" align="right" label="操作">
@@ -84,6 +86,16 @@ export default {
     handleEdit(index, row) {
       this.dialogVisible = true;
       this.nowClick = row;
+    },
+    handleNew() {
+      this.dialogVisible = true;
+      this.nowClick = {
+        name: "",
+        zjhm: "",
+        pid: "",
+        bz: "",
+        id: ""
+      };
     },
     handleDelete(index, row) {
       console.log(row);
