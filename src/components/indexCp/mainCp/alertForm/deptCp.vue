@@ -69,7 +69,7 @@ export default {
       },
       rules: {
         name: [{ required: true, message: "年龄不能为空" }],
-        pid: [{ required: true, message: "年龄不能为空" }]
+        qxdm: [{ required: true, message: "年龄不能为空" }]
       }
     };
   },
