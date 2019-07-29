@@ -99,9 +99,9 @@ export default {
 .main {
   background-color: #fff;
 }
-// @media screen and (min-width: 1367px) {
-//   .main {
-//       // height: 100%;
-//   }
-// }
+@media screen and (min-width: 1367px) {
+  .main {
+      height: 100%;
+  }
+}
 </style>

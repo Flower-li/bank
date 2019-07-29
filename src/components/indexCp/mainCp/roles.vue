@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="4">
         <div class="left">
-          <el-input placeholder="请输入查询" v-model="input">
+          <el-input placeholder="请输入查询">
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
           </el-input>
           <el-row>
@@ -53,40 +53,18 @@
             >
             <el-button type="success" icon="el-icon-search">搜索</el-button>
 
-            <el-input v-model="input" placeholder="搜索"></el-input>
+            <el-input placeholder="搜索"></el-input>
           </div>
-          <el-table
-            :data="
-              tableData.filter(
-                data =>
-                  !search ||
-                  data.name.toLowerCase().includes(search.toLowerCase())
-              )
-            "
-            style="width: 99%"
-          >
-            <el-table-column label="Date" prop="date"> </el-table-column>
-            <el-table-column label="Name" prop="name"> </el-table-column>
-            <el-table-column label="Name" prop="name"> </el-table-column>
-            <el-table-column label="Name" prop="name"> </el-table-column>
-            <el-table-column label="Name" prop="name"> </el-table-column>
-            <el-table-column label="Name" prop="name"> </el-table-column>
-            <el-table-column label="Name" prop="name"> </el-table-column>
-            <el-table-column label="地址" prop="address"> </el-table-column>
+          <el-table :data="tableData" @row-click="rowClick(tableData)" style="width: 99%">
+            <el-table-column label="名称" prop="name"> </el-table-column>
+            <el-table-column label="描述" prop="remark"> </el-table-column>
+            <el-table-column label="创建日期" prop="createTime">
+            </el-table-column>
             <el-table-column min-width="200" align="right" label="操作">
               <template>
                 <el-button size="mini" @click="dialogVisible = true"
                   >Edit</el-button
                 >
-
-                <el-dialog
-                  title="编辑角色"
-                  :visible.sync="dialogVisible"
-                  width="25%"
-                  :before-close="handleClose"
-                >
-                  <userCp />
-                </el-dialog>
 
                 <el-button size="mini" type="danger" @click="handleDelete"
                   >Delete</el-button
@@ -94,6 +72,14 @@
               </template>
             </el-table-column>
           </el-table>
+          <el-dialog
+            title="编辑角色"
+            :visible.sync="dialogVisible"
+            width="25%"
+            :before-close="handleClose"
+          >
+            <rolesCp />
+          </el-dialog>
         </div>
         <div class="page">
           <el-pagination
@@ -113,10 +99,12 @@
 </template>
 
 <script>
-import userCp from "@/components/indexCp/mainCp/userCp/userCp.vue";
+import { getRoles } from "@/api/getRoles";
+import moment from "moment";
+import rolesCp from "@/components/indexCp/mainCp/alertForm/rolesCp.vue";
 export default {
   components: {
-    userCp
+    rolesCp
   },
   name: "perMissions",
   data() {
@@ -124,103 +112,8 @@ export default {
       radio: "菜单分配",
       isRadio: true,
       dialogVisible: false,
-      input: "",
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄"
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄"
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄"
-        }
-      ],
-      search: "",
-      options: [
-        {
-          value: "选项1",
-          label: "黄金糕"
-        },
-        {
-          value: "选项2",
-          label: "双皮奶"
-        },
-        {
-          value: "选项3",
-          label: "蚵仔煎"
-        },
-        {
-          value: "选项4",
-          label: "龙须面"
-        },
-        {
-          value: "选项5",
-          label: "北京烤鸭"
-        }
-      ],
-      value: "",
-      data: [
-        {
-          id: 1,
-          label: "一级 1",
-          children: [
-            {
-              id: 4,
-              label: "二级 1-1",
-              children: [
-                {
-                  id: 9,
-                  label: "三级 1-1-1"
-                },
-                {
-                  id: 10,
-                  label: "三级 1-1-2"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          id: 2,
-          label: "一级 2",
-          children: [
-            {
-              id: 5,
-              label: "二级 2-1"
-            },
-            {
-              id: 6,
-              label: "二级 2-2"
-            }
-          ]
-        },
-        {
-          id: 3,
-          label: "一级 3",
-          children: [
-            {
-              id: 7,
-              label: "二级 3-1"
-            },
-            {
-              id: 8,
-              label: "二级 3-2"
-            }
-          ]
-        }
-      ],
+      tableData: [],
+      data: [],
       data2: [
         {
           id: 1,
@@ -277,16 +170,32 @@ export default {
       }
     };
   },
+  mounted() {
+    getRoles().then(rsf => {
+      let transTime = arr => {
+        for (const item of arr) {
+          item.createTime = moment(item.createTime).format(
+            "YYYY-MM-DD- HH:mm:ss"
+          );
+        }
+      };
+      transTime(rsf.data.content);
+      this.tableData = rsf.data.content;
+    });
+  },
   methods: {
+    rowClick(menus){
+      console.log(menus)
+    },
     change(isRadio) {
       this.isRadio = !this.isRadio;
     },
     handleClose(done) {
       this.$confirm("确认关闭？")
-        .then(_ => {
+        .then(() => {
           done();
         })
-        .catch(_ => {});
+        .catch(() => {});
     },
     handleDelete() {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {

@@ -5,7 +5,7 @@
 
       <el-button type="success" icon="el-icon-search">搜索</el-button>
 
-      <el-button type="primary" icon="el-icon-search">新增</el-button>
+      <el-button type="primary" icon="el-icon-search" @click="handleNew()">新增</el-button>
 
       <el-button type="warning" icon="el-icon-search">导出</el-button>
     </div>
@@ -20,12 +20,12 @@
       >
         <el-table-column label="名称" prop="name"> </el-table-column>
         <el-table-column label="别名" prop="alias"> </el-table-column>
-        <el-table-column label="地址" prop="pid"> </el-table-column>
-        <el-table-column label="路径" prop="pid"> </el-table-column>
+        <el-table-column label="地址" prop="alias"> </el-table-column>
+        <el-table-column label="路径" prop="alias"> </el-table-column>
         <el-table-column label="创建日期" prop="createTime"> </el-table-column>
         <el-table-column min-width="200" align="right" label="操作">
-          <template>
-            <el-button size="mini" @click="dialogVisible = true"
+          <template slot-scope="scope">
+            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
               >Edit</el-button
             >
 
@@ -41,7 +41,7 @@
         width="25%"
         :before-close="handleClose"
       >
-        <rolesCp />
+        <perMissionCp :tableData="tableData" :nowClick="nowClick" />
       </el-dialog>
     </div>
   </div>
@@ -50,17 +50,18 @@
 <script>
 import { getPermissions } from "@/api/getPermissions";
 import moment from "moment";
-import rolesCp from "@/components/indexCp/mainCp/alertForm/rolesCp.vue";
+import perMissionCp from "@/components/indexCp/mainCp/alertForm/perMissionCp.vue";
 export default {
   name: "roles",
   components: {
-    rolesCp
+    perMissionCp
   },
   data() {
     return {
       dialogVisible: false,
       hasChildren: true,
-      tableData: []
+      tableData: [],
+      nowClick: ""
     };
   },
   mounted() {
@@ -94,6 +95,19 @@ export default {
       });
   },
   methods: {
+    handleNew(){
+      this.dialogVisible = true;
+      this.nowClick = {
+        name: "",
+        alias: "",
+        pid: "",
+        id: ""
+      };
+    },
+    handleEdit(index, row) {
+      this.dialogVisible = true;
+      this.nowClick = row;
+    },
     handleClose(done) {
       this.$confirm("确认关闭？")
         .then(() => {

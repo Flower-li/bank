@@ -96,7 +96,7 @@
 
 <script>
 export default {
-  name: "alertForm",
+  name: "perMissionCp",
   data() {
     return {
       ruleForm: {

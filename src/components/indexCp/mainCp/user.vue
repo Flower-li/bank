@@ -114,10 +114,10 @@
 </template>
 
 <script>
-import alertForm from "@/components/indexCp/mainCp/perMissionsCp/alertForm.vue";
+import userCp from "@/components/indexCp/mainCp/alertForm/userCp.vue";
 export default {
   components: {
-    alertForm
+    userCp
   },
   name: "user",
   data() {
