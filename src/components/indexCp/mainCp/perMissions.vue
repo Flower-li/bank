@@ -5,7 +5,9 @@
 
       <el-button type="success" icon="el-icon-search">搜索</el-button>
 
-      <el-button type="primary" icon="el-icon-search" @click="handleNew()">新增</el-button>
+      <el-button type="primary" icon="el-icon-search" @click="handleNew()"
+        >新增</el-button
+      >
 
       <el-button type="warning" icon="el-icon-search">导出</el-button>
     </div>
@@ -95,7 +97,7 @@ export default {
       });
   },
   methods: {
-    handleNew(){
+    handleNew() {
       this.dialogVisible = true;
       this.nowClick = {
         name: "",

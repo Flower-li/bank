@@ -101,7 +101,7 @@ export default {
 }
 @media screen and (min-width: 1367px) {
   .main {
-      height: 100%;
+    height: 100%;
   }
 }
 </style>
