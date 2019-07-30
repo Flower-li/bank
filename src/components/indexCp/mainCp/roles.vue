@@ -55,7 +55,11 @@
 
             <el-input placeholder="搜索"></el-input>
           </div>
-          <el-table :data="tableData" @row-click="rowClick(tableData)" style="width: 99%">
+          <el-table
+            :data="tableData"
+            @row-click="rowClick(tableData)"
+            style="width: 99%"
+          >
             <el-table-column label="名称" prop="name"> </el-table-column>
             <el-table-column label="描述" prop="remark"> </el-table-column>
             <el-table-column label="创建日期" prop="createTime">
@@ -184,8 +188,8 @@ export default {
     });
   },
   methods: {
-    rowClick(menus){
-      console.log(menus)
+    rowClick(menus) {
+      console.log(menus);
     },
     change(isRadio) {
       this.isRadio = !this.isRadio;

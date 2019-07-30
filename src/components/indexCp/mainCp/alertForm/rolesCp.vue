@@ -51,9 +51,7 @@
 export default {
   name: "rolesCp",
   data() {
-    return {
-
-    };
+    return {};
   },
   methods: {
     submitForm(formName) {
