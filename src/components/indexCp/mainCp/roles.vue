@@ -16,21 +16,23 @@
           </el-row>
 
           <el-tree
-            :data="data2"
-            show-checkbox
-            node-key="id"
-            :default-expanded-keys="[2, 3]"
-            :default-checked-keys="[5]"
-            :props="defaultProps"
-            v-show="isRadio"
-          >
-          </el-tree>
-          <el-tree
             :data="data"
             show-checkbox
             node-key="id"
+            :default-expanded-keys="[2, 3]"
+            :default-checked-keys="active"
+            :props="defaultProps"
+            v-show="isRadio"
+            v-if="reload"
+            @check="checkd"
+          >
+          </el-tree>
+          <el-tree
+            :data="data2"
+            show-checkbox
+            node-key="id"
             :default-expanded-keys="[1, 3]"
-            :default-checked-keys="[5]"
+            :default-checked-keys="[1]"
             :props="defaultProps"
             v-show="!isRadio"
           >
@@ -55,7 +57,7 @@
 
             <el-input placeholder="搜索"></el-input>
           </div>
-          <el-table :data="tableData" @row-click="rowClick(tableData)" style="width: 99%">
+          <el-table :data="tableData" @row-click="rowClick" style="width: 99%">
             <el-table-column label="名称" prop="name"> </el-table-column>
             <el-table-column label="描述" prop="remark"> </el-table-column>
             <el-table-column label="创建日期" prop="createTime">
@@ -113,6 +115,8 @@ export default {
       isRadio: true,
       dialogVisible: false,
       tableData: [],
+      active: [],
+      reload: true,
       data: [],
       data2: [
         {
@@ -166,7 +170,7 @@ export default {
       ],
       defaultProps: {
         children: "children",
-        label: "label"
+        label: "name"
       }
     };
   },
@@ -181,11 +185,23 @@ export default {
       };
       transTime(rsf.data.content);
       this.tableData = rsf.data.content;
+      this.data = rsf.data.content[0].menus;
+      console.log(this.data);
     });
   },
   methods: {
-    rowClick(menus){
-      console.log(menus)
+    checkd(a,b){
+      // console.log(b)
+      this.active=b.checkedKeys
+      console.log(this.active)
+    },
+    rowClick(menus) {
+      this.reload = false;
+      this.$nextTick(() => {
+        this.reload = true;
+        this.active = menus.menus.map(m => m.id);
+        console.log(this.active);
+      });
     },
     change(isRadio) {
       this.isRadio = !this.isRadio;
