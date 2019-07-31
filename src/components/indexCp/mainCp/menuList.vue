@@ -1,7 +1,7 @@
 <template>
   <div class="menuList">
     <div class="search">
-      <el-input  placeholder="请输入内容"></el-input>
+      <el-input placeholder="请输入内容"></el-input>
 
       <el-button type="success" icon="el-icon-search">搜索</el-button>
 
@@ -16,9 +16,8 @@
         style="width: 99%"
         row-key="id"
         default-expand-all
-        :default-sort = "{prop: 'soft', order: 'ascending'}"
         border
-        :tree-props="{ children: 'children', hasChildren: 'hasChildren'}"
+        :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
         <el-table-column label="名称" prop="name"> </el-table-column>
         <el-table-column label="菜单排序" prop="soft" width="90" align="center">
@@ -85,27 +84,40 @@ export default {
   },
   mounted() {
     getMenus().then(rsf => {
-              let transTime = arr => {
-          for (const item of arr) {
-            if (item.children == null) {
-              item.createTime = moment(item.createTime).format(
-                "YYYY-MM-DD- HH:mm:ss"
-              );
-            } else transTime(item.children);
-            //  transTime(item.children)
+      let transTime = arr => {
+        for (const item of arr) {
+          if (item.children == null) {
+            item.createTime = moment(item.createTime).format(
+              "YYYY-MM-DD- HH:mm:ss"
+            );
+          } else transTime(item.children);
+          //  transTime(item.children)
+        }
+      };
+      let transTime1 = arr => {
+        for (const item of arr) {
+          if (item.children != null) {
+            item.createTime = moment(item.createTime).format(
+              "YYYY-MM-DD HH:mm:ss"
+            );
           }
-        };
-        let transTime1 = arr => {
-          for (const item of arr) {
-            if (item.children != null) {
-              item.createTime = moment(item.createTime).format(
-                "YYYY-MM-DD HH:mm:ss"
-              );
-            }
+        }
+      };
+      transTime(rsf.data.content);
+      transTime1(rsf.data.content);
+      let sort = arr => {
+        for (const item of arr) {
+          if (item.children) {
+            item.children = sort(item.children);
           }
-        };
-        transTime(rsf.data.content);
-        transTime1(rsf.data.content);
+        }
+        return arr.sort((left, right) => {
+          let result = Number(left.soft) - Number(right.soft);
+          return result;
+        });
+      };
+      let arr2 = sort(rsf.data.content);
+      console.log(arr2);
       this.tableData = rsf.data.content;
     });
   },
