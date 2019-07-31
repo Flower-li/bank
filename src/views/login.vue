@@ -58,7 +58,17 @@ export default {
       password: ""
     };
   },
-
+mounted(){
+        this.$axios
+        .post("http://mock-api.com/wjzpZenX.mock/login")
+        .then(rsp => {
+          let token=rsp.data.token
+          console.log(token)
+        })
+        .catch(err => {
+          alert(err);
+        });
+},
   methods: {
     check() {
       this.$axios
