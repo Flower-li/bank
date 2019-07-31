@@ -122,7 +122,7 @@ export default {
         {
           id: 1,
           label: "一级 123123121",
-          name:"123123123",
+          name: "123123123",
           children: [
             {
               id: 4,

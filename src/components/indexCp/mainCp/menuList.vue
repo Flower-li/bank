@@ -20,7 +20,8 @@
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
         <el-table-column label="名称" prop="name"> </el-table-column>
-        <el-table-column label="菜单排序" prop="soft" width="90" align="center"> </el-table-column>
+        <el-table-column label="菜单排序" prop="soft" width="90" align="center">
+        </el-table-column>
         <el-table-column label="链接地址" prop="component"> </el-table-column>
         <el-table-column label="组件路径" prop="component"> </el-table-column>
         <el-table-column label="内部菜单" align="center" width="100">
@@ -29,7 +30,12 @@
             <el-tag type="danger" v-else>否</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="是否显示" prop="ifhidden" align="center" width="100">
+        <el-table-column
+          label="是否显示"
+          prop="ifhidden"
+          align="center"
+          width="100"
+        >
           <template slot-scope="scope">
             <el-tag v-if="scope.row.ifhidden">是</el-tag>
             <el-tag type="danger" v-else>否</el-tag>
@@ -48,14 +54,14 @@
           </template>
         </el-table-column>
       </el-table>
-                  <el-dialog
-              title="编辑"
-              :visible.sync="dialogVisible"
-              width="25%"
-              :before-close="handleClose"
-            >
-              <menuCp />
-            </el-dialog>
+      <el-dialog
+        title="编辑"
+        :visible.sync="dialogVisible"
+        width="25%"
+        :before-close="handleClose"
+      >
+        <menuCp />
+      </el-dialog>
     </div>
   </div>
 </template>
