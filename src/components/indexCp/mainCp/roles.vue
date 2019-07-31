@@ -122,6 +122,7 @@ export default {
         {
           id: 1,
           label: "一级 123123121",
+          name:"123123123",
           children: [
             {
               id: 4,
@@ -190,10 +191,9 @@ export default {
     });
   },
   methods: {
-    checkd(a,b){
+    checkd(a, b) {
       // console.log(b)
-      this.active=b.checkedKeys
-      console.log(this.active)
+      this.active = b.checkedKeys;
     },
     rowClick(menus) {
       this.reload = false;

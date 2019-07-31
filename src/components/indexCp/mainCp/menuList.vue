@@ -12,27 +12,43 @@
 
     <div class="form">
       <el-table
-        :data="
-          tableData.filter(
-            data =>
-              !search || data.name.toLowerCase().includes(search.toLowerCase())
-          )
-        "
+        :data="tableData"
         style="width: 99%"
         row-key="id"
         default-expand-all
+        border
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       >
-        <el-table-column label="Date" prop="date"> </el-table-column>
-        <el-table-column label="Name" prop="name"> </el-table-column>
-        <el-table-column label="地址" prop="address"> </el-table-column>
-        <el-table-column min-width="200" align="right" label="操作">
+        <el-table-column label="名称" prop="name"> </el-table-column>
+        <el-table-column label="菜单排序" prop="soft" width="90" align="center"> </el-table-column>
+        <el-table-column label="链接地址" prop="component"> </el-table-column>
+        <el-table-column label="组件路径" prop="component"> </el-table-column>
+        <el-table-column label="内部菜单" align="center" width="100">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.iframe">是</el-tag>
+            <el-tag type="danger" v-else>否</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="是否显示" prop="ifhidden" align="center" width="100">
+          <template slot-scope="scope">
+            <el-tag v-if="scope.row.ifhidden">是</el-tag>
+            <el-tag type="danger" v-else>否</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="创建日期" prop="createTime"> </el-table-column>
+        <el-table-column min-width="100" align="right" label="操作">
           <template>
             <el-button size="mini" @click="dialogVisible = true"
-              >Edit</el-button
+              >编辑</el-button
             >
 
-            <el-dialog
+            <el-button size="mini" type="danger" @click="handleDelete"
+              >删除</el-button
+            >
+          </template>
+        </el-table-column>
+      </el-table>
+                  <el-dialog
               title="编辑"
               :visible.sync="dialogVisible"
               width="25%"
@@ -40,18 +56,12 @@
             >
               <menuCp />
             </el-dialog>
-
-            <el-button size="mini" type="danger" @click="handleDelete"
-              >Delete</el-button
-            >
-          </template>
-        </el-table-column>
-      </el-table>
     </div>
   </div>
 </template>
 
 <script>
+import { getMenus } from "@/api/getMenus";
 import menuCp from "@/components/indexCp/mainCp/alertForm/menuCp.vue";
 export default {
   name: "menuList",
@@ -62,73 +72,21 @@ export default {
     return {
       dialogVisible: false,
       hasChildren: true,
-      tableData: [
-        {
-          id: 1,
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-          children: [
-            {
-              id: 11,
-              date: "2016-05-02",
-              name: "王小虎",
-              address: "上海市普陀区金沙江路 1518 弄"
-            }
-          ]
-        },
-        {
-          id: 2,
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄"
-        },
-        {
-          id: 3,
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄"
-        },
-        {
-          id: 4,
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄"
-        }
-      ],
-      search: "",
-      options: [
-        {
-          value: "选项1",
-          label: "黄金糕"
-        },
-        {
-          value: "选项2",
-          label: "双皮奶"
-        },
-        {
-          value: "选项3",
-          label: "蚵仔煎"
-        },
-        {
-          value: "选项4",
-          label: "龙须面"
-        },
-        {
-          value: "选项5",
-          label: "北京烤鸭"
-        }
-      ],
-      value: ""
+      tableData: []
     };
+  },
+  mounted() {
+    getMenus().then(rsf => {
+      this.tableData = rsf.data.content;
+    });
   },
   methods: {
     handleClose(done) {
       this.$confirm("确认关闭？")
-        .then(_ => {
+        .then(() => {
           done();
         })
-        .catch(_ => {});
+        .catch(() => {});
     },
     handleDelete() {
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
