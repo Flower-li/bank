@@ -1,7 +1,7 @@
 <template>
   <div class="menuList">
     <div class="search">
-      <el-input v-model="input" placeholder="请输入内容"></el-input>
+      <el-input  placeholder="请输入内容"></el-input>
 
       <el-button type="success" icon="el-icon-search">搜索</el-button>
 
@@ -16,8 +16,9 @@
         style="width: 99%"
         row-key="id"
         default-expand-all
+        :default-sort = "{prop: 'soft', order: 'ascending'}"
         border
-        :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+        :tree-props="{ children: 'children', hasChildren: 'hasChildren'}"
       >
         <el-table-column label="名称" prop="name"> </el-table-column>
         <el-table-column label="菜单排序" prop="soft" width="90" align="center">
@@ -68,6 +69,7 @@
 
 <script>
 import { getMenus } from "@/api/getMenus";
+import moment from "moment";
 import menuCp from "@/components/indexCp/mainCp/alertForm/menuCp.vue";
 export default {
   name: "menuList",
@@ -83,6 +85,27 @@ export default {
   },
   mounted() {
     getMenus().then(rsf => {
+              let transTime = arr => {
+          for (const item of arr) {
+            if (item.children == null) {
+              item.createTime = moment(item.createTime).format(
+                "YYYY-MM-DD- HH:mm:ss"
+              );
+            } else transTime(item.children);
+            //  transTime(item.children)
+          }
+        };
+        let transTime1 = arr => {
+          for (const item of arr) {
+            if (item.children != null) {
+              item.createTime = moment(item.createTime).format(
+                "YYYY-MM-DD HH:mm:ss"
+              );
+            }
+          }
+        };
+        transTime(rsf.data.content);
+        transTime1(rsf.data.content);
       this.tableData = rsf.data.content;
     });
   },
