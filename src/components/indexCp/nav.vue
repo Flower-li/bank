@@ -34,22 +34,29 @@
 
 <script>
 import { getNav } from "@/api/nav";
+// import {mapState} from "vuex"
 export default {
   name: "IndexNav",
   props: ["isCollapse"],
   data() {
     return {
-      navList: [],
+      navList:[],
       menuTitle: "",
       navTitle: "",
       navComponent: ""
     };
   },
+  // computed:{
+  //   ...mapState(["navList"])
+  // },
   created() {
     getNav().then(rsf => {
       this.navList = rsf.data;
     });
   },
+  // mounted(){
+  //      console.log(this.navList)
+  // },
   methods: {
     addTab(menuTitle, navTitle, navComponent) {
       this.menuTitle = menuTitle;

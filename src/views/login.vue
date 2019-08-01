@@ -42,13 +42,7 @@
 </template>
 
 <script>
-// import Axios from "axios";
-// import { readFileSync } from "fs";
-import store from "../store";
-import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
-
 export default {
-  store,
   name: "login",
   img_bk: require("../assets/images/favicon.png"),
   data() {
@@ -63,7 +57,6 @@ export default {
       .post("http://mock-api.com/wjzpZenX.mock/login")
       .then(rsp => {
         let token = rsp.data.token;
-        console.log(token);
       })
       .catch(err => {
         alert(err);
