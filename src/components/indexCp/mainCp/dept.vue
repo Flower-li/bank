@@ -41,7 +41,7 @@
       <el-dialog
         title="编辑"
         :visible.sync="dialogVisible"
-        width="25%"
+        width="500px"
         :before-close="handleClose"
       >
         <deptCp :nowClick="nowClick" :tableData="tableData" />

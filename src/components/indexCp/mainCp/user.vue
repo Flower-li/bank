@@ -83,7 +83,7 @@
                 <el-dialog
                   title="编辑"
                   :visible.sync="dialogVisible"
-                  width="35%"
+                  width="480px"
                   :before-close="handleClose"
                 >
                   <alertForm />

@@ -40,7 +40,7 @@
       <el-dialog
         title="编辑"
         :visible.sync="dialogVisible"
-        width="25%"
+        width="500px"
         :before-close="handleClose"
       >
         <perMissionCp :tableData="tableData" :nowClick="nowClick" />

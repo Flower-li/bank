@@ -77,7 +77,7 @@
           <el-dialog
             title="编辑角色"
             :visible.sync="dialogVisible"
-            width="25%"
+            width="480px"
             :before-close="handleClose"
           >
             <rolesCp />

@@ -40,7 +40,7 @@ export default {
   props: ["isCollapse"],
   data() {
     return {
-      navList:[],
+      navList: [],
       menuTitle: "",
       navTitle: "",
       navComponent: ""

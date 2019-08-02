@@ -5,7 +5,9 @@
 
       <el-button type="success" icon="el-icon-search">搜索</el-button>
 
-      <el-button type="primary" icon="el-icon-search">新增</el-button>
+      <el-button type="primary" icon="el-icon-search" @click="handleNew"
+        >新增</el-button
+      >
 
       <el-button type="warning" icon="el-icon-search">导出</el-button>
     </div>
@@ -43,8 +45,8 @@
         </el-table-column>
         <el-table-column label="创建日期" prop="createTime"> </el-table-column>
         <el-table-column min-width="100" align="right" label="操作">
-          <template>
-            <el-button size="mini" @click="dialogVisible = true"
+          <template slot-scope="scope">
+            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
               >编辑</el-button
             >
 
@@ -57,10 +59,10 @@
       <el-dialog
         title="编辑"
         :visible.sync="dialogVisible"
-        width="25%"
+        width="480px"
         :before-close="handleClose"
       >
-        <menuCp />
+        <menuCp :nowClick="nowClick" :tableData="tableData" />
       </el-dialog>
     </div>
   </div>
@@ -79,7 +81,8 @@ export default {
     return {
       dialogVisible: false,
       hasChildren: true,
-      tableData: []
+      tableData: [],
+      nowClick: ""
     };
   },
   mounted() {
@@ -117,11 +120,25 @@ export default {
         });
       };
       let arr2 = sort(rsf.data.content);
-      console.log(arr2);
       this.tableData = rsf.data.content;
     });
   },
   methods: {
+    handleNew() {
+      this.dialogVisible = true;
+      this.nowClick = {
+        name: "",
+        soft: "",
+        component: "",
+        iframe: Boolean,
+        ifhidden: Boolean,
+        pid: ""
+      };
+    },
+    handleEdit(inde, row) {
+      this.dialogVisible = true;
+      this.nowClick = row;
+    },
     handleClose(done) {
       this.$confirm("确认关闭？")
         .then(() => {

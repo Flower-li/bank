@@ -1,5 +1,5 @@
 <template>
-  <div class="rolesCp">
+  <div class="menuCp">
     <el-form
       :model="ruleForm"
       :rules="rules"
@@ -17,25 +17,9 @@
 
       <el-row>
         <el-col>
-          <el-form-item label="菜单排序" prop="name">
+          <el-form-item label="菜单排序" prop="soft">
             <el-input
-              v-model="ruleForm.name"
-              placeholder="请输入内容"
-              style="width:300px"
-            ></el-input> </el-form-item
-        ></el-col>
-      </el-row>
-      <el-form-item label="内部菜单" prop="resource">
-        <el-radio-group v-model="ruleForm.resource">
-          <el-radio label="激活"></el-radio>
-          <el-radio label="锁定"></el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-row>
-        <el-col>
-          <el-form-item label="内部地址" prop="name">
-            <el-input
-              v-model="ruleForm.name"
+              v-model="ruleForm.soft"
               placeholder="请输入内容"
               style="width:300px"
             ></el-input> </el-form-item
@@ -43,9 +27,37 @@
       </el-row>
       <el-row>
         <el-col>
-          <el-form-item label="组件目录" prop="name">
+          <el-form-item label="链接路径 " prop="component">
             <el-input
-              v-model="ruleForm.name"
+              v-model="ruleForm.component"
+              placeholder="请输入内容"
+              style="width:300px"
+            ></el-input> </el-form-item
+        ></el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="11">
+          <el-form-item label="内部菜单" prop="iframe">
+            <el-radio-group v-model="ruleForm.iframe">
+              <el-radio :label="true">是</el-radio>
+              <el-radio :label="false">否</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+        <el-col :span="13">
+          <el-form-item label="是否显示" prop="ifhidden">
+            <el-radio-group v-model="ruleForm.ifhidden">
+              <el-radio :label="true">是</el-radio>
+              <el-radio :label="false">否</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="组件路径" prop="component">
+            <el-input
+              v-model="ruleForm.component"
               placeholder="请输入内容"
               style="width:300px"
             ></el-input> </el-form-item
@@ -53,20 +65,23 @@
       </el-row>
       <el-row>
         <el-col>
-          <el-form-item label="上级类目" prop="name">
-            <el-select
-              v-model="label"
-              filterable
-              placeholder="请选择"
-              style="width:300px"
-            >
-              <el-tree
-                :data="data"
-                :props="defaultProps"
-                accordion
-                :label="data.label"
-              >
-              </el-tree> </el-select></el-form-item
+          <el-form-item label="上级目录" prop="pid">
+            <treeselect
+              v-model="ruleForm.pid"
+              :multiple="false"
+              :options="options"
+            /> </el-form-item
+        ></el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="选择角色">
+            <el-cascader
+              :options="options"
+              :props="props"
+              collapse-tags
+              clearable
+            ></el-cascader> </el-form-item
         ></el-col>
       </el-row>
       <el-form-item>
@@ -80,121 +95,48 @@
 </template>
 
 <script>
+import Treeselect from "@riophae/vue-treeselect";
+import "@riophae/vue-treeselect/dist/vue-treeselect.css";
+import { getMenusTree } from "@/api/getMenusTree";
 export default {
+  components: { Treeselect },
   name: "rolesCp",
+  props: ["nowClick", "tableData"],
   data() {
     return {
+      props: { multiple: true },
+      options: [],
       ruleForm: {
         name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: ""
+        soft: "",
+        component: "",
+        iframe: Boolean,
+        ifhidden: Boolean,
+        pid: ""
       },
       rules: {
-        name: [
-          { required: true, message: "请输入活动名称", trigger: "blur" },
-          { min: 3, max: 5, message: "长度在 3 到 5 个字符", trigger: "blur" }
-        ],
-        region: [
-          { required: true, message: "请选择活动区域", trigger: "change" }
-        ],
-        date1: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择日期",
-            trigger: "change"
-          }
-        ],
-        date2: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择时间",
-            trigger: "change"
-          }
-        ],
-        type: [
-          {
-            type: "array",
-            required: true,
-            message: "请至少选择一个活动性质",
-            trigger: "change"
-          }
-        ],
-        resource: [
-          { required: true, message: "请选择活动资源", trigger: "change" }
-        ],
-        desc: [{ required: true, message: "请填写活动形式", trigger: "blur" }]
+        name: [{ required: true, message: "这是一个必填框" }],
+        soft: [{ required: true, message: "这是一个必填框" }],
+        iframe: [{ required: true, message: "这是一个必填框" }],
+        ifhidden: [{ required: true, message: "这是一个必填框" }]
       },
-      data: [
-        {
-          label: "一级 1",
-          children: [
-            {
-              label: "二级 1-1",
-              children: [
-                {
-                  label: "三级 1-1-1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          label: "一级 2",
-          children: [
-            {
-              label: "二级 2-1",
-              children: [
-                {
-                  label: "三级 2-1-1"
-                }
-              ]
-            },
-            {
-              label: "二级 2-2",
-              children: [
-                {
-                  label: "三级 2-2-1"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          label: "一级 3",
-          children: [
-            {
-              label: "二级 3-1",
-              children: [
-                {
-                  label: "三级 3-1-1"
-                }
-              ]
-            },
-            {
-              label: "二级 3-2",
-              children: [
-                {
-                  label: "三级 3-2-1"
-                }
-              ]
-            }
-          ]
-        }
-      ],
+      data: [],
       defaultProps: {
         children: "children",
         label: "label"
-      },
-      value: "",
-      value2: []
+      }
     };
+  },
+  mounted() {
+    this.ruleForm = this.nowClick;
+    getMenusTree().then(rsf => {
+      this.options = rsf.data;
+    });
+  },
+  watch: {
+    nowClick(newData, old) {
+      this.ruleForm = newData;
+    }
   },
   methods: {
     submitForm(formName) {
@@ -214,6 +156,21 @@ export default {
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss"></style>
+<style lang="scss">
+.menuCp {
+  .vue-treeselect__control {
+    width: 300px !important ;
+  }
+  .el-input {
+    width: 300px !important;
+  }
+}
+</style>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.menuCp {
+  .el-radio {
+    margin-right: 10px;
+  }
+}
+</style>
