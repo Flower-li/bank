@@ -57,6 +57,8 @@ export default {
       .post("http://mock-api.com/wjzpZenX.mock/login")
       .then(rsp => {
         let token = rsp.data.token;
+        // localStorage.setItem("token",token);
+        // localStorage.removeItem("token")
       })
       .catch(err => {
         alert(err);
